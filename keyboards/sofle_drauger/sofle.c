@@ -2,6 +2,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
+#define TRI_LAYER_LOWER_LAYER 1
+#define TRI_LAYER_UPPER_LAYER 2
+#define TRI_LAYER_ADJUST_LAYER 3
+
 #ifdef SWAP_HANDS_ENABLE
 
 __attribute__ ((weak))
@@ -70,9 +74,9 @@ void print_status_narrow(void) {
         case 0:
             oled_write_ln_P(PSTR("Qwrt"), false);
             break;
-        case 1:
-            oled_write_ln_P(PSTR("Clmk"), false);
-            break;
+        // case 1:
+            // oled_write_ln_P(PSTR("Clmk"), false);
+            // break;
         default:
             oled_write_P(PSTR("Mod\n"), false);
             break;
@@ -81,14 +85,16 @@ void print_status_narrow(void) {
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
-        case 1:
             oled_write_P(PSTR("Base\n"), false);
             break;
+        case 1:
+            oled_write_P(PSTR("Num\n"), false);
+            break;
         case 2:
-            oled_write_P(PSTR("Raise"), false);
+            oled_write_P(PSTR("Fn"), false);
             break;
         case 3:
-            oled_write_P(PSTR("Lower"), false);
+            oled_write_P(PSTR("Adj"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
