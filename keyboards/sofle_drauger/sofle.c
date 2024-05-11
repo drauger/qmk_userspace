@@ -2,9 +2,14 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
-#define TRI_LAYER_LOWER_LAYER 1
-#define TRI_LAYER_UPPER_LAYER 2
-#define TRI_LAYER_ADJUST_LAYER 3
+// #define TRI_LAYER_LOWER_LAYER 1
+// #define TRI_LAYER_UPPER_LAYER 2
+// #define TRI_LAYER_ADJUST_LAYER 3
+
+#ifdef TAPPING_TOGGLE
+#undef TAPPING_TOGGLE
+#define TAPPING_TOGGLE 2
+#endif
 
 #ifdef SWAP_HANDS_ENABLE
 
@@ -91,13 +96,13 @@ void print_status_narrow(void) {
             oled_write_P(PSTR("Num\n"), false);
             break;
         case 2:
-            oled_write_P(PSTR("Fn"), false);
+            oled_write_P(PSTR("Fn\n"), false);
             break;
         case 3:
-            oled_write_P(PSTR("Adj"), false);
+            oled_write_P(PSTR("Adj\n"), false);
             break;
         default:
-            oled_write_ln_P(PSTR("Undef"), false);
+            oled_write_ln_P(PSTR("Undef\n"), false);
     }
     oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
