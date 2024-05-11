@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_LBRC,
   KC_LGUI,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                       KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,  XXXXXXX,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
-                   TT(1),   TT(2), KC_LALT, KC_LCTL,  KC_SPC,   KC_ENT, KC_RCTL, KC_RALT,   TT(2),   TT(1)
+                   MO(1),   MO(2), KC_LALT, KC_LCTL,  KC_SPC,   KC_ENT, KC_RCTL, KC_RALT,   MO(2),   MO(1)
 ),
 /*
  * LOWER - NUM
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_TAB, KC_PGUP, KC_HOME,   KC_UP,  KC_END, XXXXXXX,                    KC_PAST,   KC_P4,   KC_P5,   KC_P6, KC_LPRN, KC_RBRC,
   KC_LGUI, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX,                    KC_PMNS,   KC_P1,   KC_P2,   KC_P3, KC_RPRN, KC_RGUI,
   KC_LSFT, XXXXXXX, KC_BTN1, KC_BTN3, KC_BTN2, XXXXXXX, KC_MUTE,  XXXXXXX, KC_PPLS,   KC_P0, KC_PDOT, KC_PCMM, KC_BSLS, KC_RSFT,
-                      TT(1),   TT(2), KC_LALT, KC_LCTL,  KC_SPC,   KC_ENT, KC_RCTL, KC_RALT,   TT(2),   TT(1)
+                      MO(1),   MO(2), KC_LALT, KC_LCTL,  KC_SPC,   KC_ENT, KC_RCTL, KC_RALT,   MO(2),   MO(1)
 ),
 /* RAISE - Fn
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_TAB,  KC_INS, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U,                    KC_PGUP, KC_HOME,   KC_UP,  KC_END,  KC_F11, KC_RBRC,
   KC_LGUI, KC_PSCR, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,                    KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT,  KC_F12, KC_RGUI,
   KC_LSFT, XXXXXXX, KC_WH_L, KC_BTN3, KC_WH_R, XXXXXXX, _______,  _______, XXXXXXX, KC_BTN1, KC_BTN3, KC_BTN2, KC_BSLS, KC_RSFT,
-                      TT(1),   TT(2), KC_LALT, KC_LCTL, KC_SPC,    KC_ENT, KC_RCTL, KC_RALT,   TT(2),   TT(1)
+                      MO(1),   MO(2), KC_LALT, KC_LCTL,  KC_SPC,   KC_ENT, KC_RCTL, KC_RALT,   MO(2),   MO(1)
 ),
 /* ADJUST
  * ,----------------------------------------.                    ,-----------------------------------------.
