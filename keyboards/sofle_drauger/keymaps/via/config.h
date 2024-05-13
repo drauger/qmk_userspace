@@ -13,4 +13,4 @@
 // #define ONESHOT_TAP_TOGGLE 2
 // #endif
 
-#define TAPPING_TERM 200
+// #define TAPPING_TERM 200
