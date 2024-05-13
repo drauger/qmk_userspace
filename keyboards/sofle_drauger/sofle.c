@@ -2,15 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
-// #define TRI_LAYER_LOWER_LAYER 1
-// #define TRI_LAYER_UPPER_LAYER 2
-// #define TRI_LAYER_ADJUST_LAYER 3
-
-#ifdef TAPPING_TOGGLE
-#undef TAPPING_TOGGLE
-#define TAPPING_TOGGLE 2
-#endif
-
 #ifdef SWAP_HANDS_ENABLE
 
 __attribute__ ((weak))
@@ -58,12 +49,12 @@ const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {1, 0};
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-    if (is_keyboard_master()) {
+    // if (is_keyboard_master()) {
         return OLED_ROTATION_270;
-    }
-    return rotation;
+    // }
+    // return rotation;
 }
-
+/*
 static void render_logo(void) {
     static const char PROGMEM qmk_logo[] = {
         0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
@@ -72,7 +63,7 @@ static void render_logo(void) {
     };
     oled_write_P(qmk_logo, false);
 }
-
+*/
 void print_status_narrow(void) {
     oled_write_P(PSTR("\n\n"), false);
     switch (get_highest_layer(layer_state)) {
@@ -105,19 +96,19 @@ void print_status_narrow(void) {
             oled_write_ln_P(PSTR("Undef\n"), false);
     }
     oled_write_P(PSTR("\n\n"), false);
-    led_t led_usb_state = host_keyboard_led_state();
-    oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+    // led_t led_usb_state = host_keyboard_led_state();
+    // oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
 }
 
 bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
     }
-    if (is_keyboard_master()) {
+    // if (is_keyboard_master()) {
         print_status_narrow();
-    } else {
-        render_logo();
-    }
+    // } else {
+        // render_logo();
+    // }
     return true;
 }
 
