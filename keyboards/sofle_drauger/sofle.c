@@ -78,6 +78,42 @@ void print_status_narrow(void) {
             break;
     }
     oled_write_P(PSTR("\n\n"), false);
+    // oled_write_ln_P(PSTR("LAYER"), false);
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_P(PSTR("Base\n"), false);
+            break;
+        case 1:
+            oled_write_P(PSTR("Num\n"), false);
+            break;
+        case 2:
+            oled_write_P(PSTR("Fn\n"), false);
+            break;
+        // case 3:
+            // oled_write_P(PSTR("Adj\n"), false);
+            // break;
+        // default:
+            // oled_write_ln_P(PSTR("Undef\n"), false);
+    }
+    oled_write_P(PSTR("\n\n"), false);
+    // led_t led_usb_state = host_keyboard_led_state();
+    // oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+}
+/*
+void print_status_narrow2(void) {
+    oled_write_P(PSTR("\n\n\n\n\n\n"), false);
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_ln_P(PSTR("Qwrt"), false);
+            break;
+        // case 1:
+            // oled_write_ln_P(PSTR("Clmk"), false);
+            // break;
+        default:
+            oled_write_P(PSTR("Mod\n"), false);
+            break;
+    }
+    oled_write_P(PSTR("\n\n"), false);
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
@@ -99,16 +135,17 @@ void print_status_narrow(void) {
     // led_t led_usb_state = host_keyboard_led_state();
     // oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
 }
-
+*/
 bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
     }
-    // if (is_keyboard_master()) {
+    if (is_keyboard_master()) {
         print_status_narrow();
-    // } else {
+    } else {
         // render_logo();
-    // }
+        // print_status_narrow2();
+    }
     return true;
 }
 
