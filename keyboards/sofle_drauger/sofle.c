@@ -68,7 +68,7 @@ void print_status_narrow(void) {
     oled_write_P(PSTR("\n\n"), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
-            oled_write_ln_P(PSTR("Qwrt"), false);
+            oled_write_ln_P(PSTR("Qwerty"), false);
             break;
         // case 1:
             // oled_write_ln_P(PSTR("Clmk"), false);
@@ -96,8 +96,9 @@ void print_status_narrow(void) {
             // oled_write_ln_P(PSTR("Undef\n"), false);
     }
     oled_write_P(PSTR("\n\n"), false);
-    // led_t led_usb_state = host_keyboard_led_state();
+    led_t led_usb_state = host_keyboard_led_state();
     // oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+    if(led_usb_state.caps_lock) oled_write_ln_P(PSTR("Caps"), false);
 }
 /*
 void print_status_narrow2(void) {
