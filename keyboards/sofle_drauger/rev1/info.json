@@ -99,5 +99,8 @@
                 {"matrix": [9, 0], "x": 14, "y": 4.375}
             ]
         }
+    },
+    "dynamic_keymap": {
+        "layer_count": 3
     }
 }
