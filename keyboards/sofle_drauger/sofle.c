@@ -49,7 +49,8 @@ const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {1, 0};
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-    // if (is_keyboard_master()) {
+    oled_set_brightness(63);
+	// if (is_keyboard_master()) {
         return OLED_ROTATION_270;
     // }
     // return rotation;
@@ -66,31 +67,31 @@ static void render_logo(void) {
 */
 void print_status_narrow(void) {
     oled_write_P(PSTR("\n\n"), false);
-    switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_write_ln_P(PSTR("Qwrt"), false);
-            break;
-        // case 1:
-            // oled_write_ln_P(PSTR("Clmk"), false);
+    // switch (get_highest_layer(layer_state)) {
+        // case 0:
+            // oled_write_ln_P(PSTR("Qwrt"), false);
             // break;
-        default:
-            oled_write_P(PSTR("Mod\n"), false);
-            break;
-    }
+        // // case 1:
+            // // oled_write_ln_P(PSTR("Clmk"), false);
+            // // break;
+        // default:
+            // oled_write_P(PSTR("Mod\n"), false);
+            // break;
+    // }
     oled_write_P(PSTR("\n\n"), false);
     // oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
-            oled_write_P(PSTR("Base\n"), false);
+            oled_write_ln_P(PSTR(""), false);
             break;
         case 1:
-            oled_write_P(PSTR("Num\n"), false);
+            oled_write_ln_P(PSTR("Num"), false);
             break;
         case 2:
-            oled_write_P(PSTR("Fn\n"), false);
+            oled_write_ln_P(PSTR("Fn"), false);
             break;
         // case 3:
-            // oled_write_P(PSTR("Adj\n"), false);
+            // oled_write_ln_P(PSTR("Adj"), false);
             // break;
         // default:
             // oled_write_ln_P(PSTR("Undef\n"), false);
@@ -99,7 +100,7 @@ void print_status_narrow(void) {
     led_t led_usb_state = host_keyboard_led_state();
     // oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
     if(led_usb_state.caps_lock) oled_write_ln_P(PSTR("Caps"), false);
-		else oled_write_ln_P(PSTR("     "), false);
+		else oled_write_ln_P(PSTR(""), false);
 }
 
 bool oled_task_kb(void) {
