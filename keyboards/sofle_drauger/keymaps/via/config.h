@@ -14,3 +14,8 @@
 // #endif
 
 // #define TAPPING_TERM 200
+
+#ifdef ENCODER_RESOLUTION 
+#undef ENCODER_RESOLUTION 
+#define ENCODER_RESOLUTION 1
+#endif
