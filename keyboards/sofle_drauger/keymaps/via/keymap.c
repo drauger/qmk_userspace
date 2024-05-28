@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | WIN  | vDn  | Left | Down | Right| PgDn |-------.    ,-------|   -  |   1  |   2  |   3  |   ;  |  "   |
  * |------+------+------+------+------+------|  MUTE |    | CtrlA |------+------+------+------+------+------|
- * |LShift| Caps |  m1  | m3   |  m2  | Power|-------|    |-------|   +  |   0  |   ,  |   .  |   \  |RShift|
+ * |LShift| Caps |  m1  | m3   |  m2  | Power|-------|    |-------|   +  |   0  |   ,  |   >  |   \  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LCTR | LAlt |LOWER |RAISE | /Space  /       \Enter \  |RAISE |LOWER | RAlt | RCTR |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | WIN  | Pscr |  mLt |  mDn |  mRt | wDn  |-------.    ,-------| PgDn | Left | Down | Right| F12  | WIN  |
  * |------+------+------+------+------+------|  MUTE |    | shftA |------+------+------+------+------+------|
- * | Shift| Scrl |  wL  |  m3  |  wR  |      |-------|    |-------|      |  m1  | m3   |  m2  |   \  | Shift|
+ * | Shift| Scrl |  wL  |  m3  |  wR  |      |-------|    |-------|      |  m2  | m3   |  m1  |   \  | Shift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LCTR | LAlt |LOWER |RAISE | /Space  /       \Enter \  |RAISE |LOWER | RAlt | RCTR |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -127,8 +127,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Store the current modifier state in the variable for later reference
     mod_state = get_mods();
     switch (keycode) {
-
-    case KC_BSPC:
+    
+        case KC_BSPC:
         {
         // Initialize a boolean variable that keeps track
         // of the delete key status: registered or not?
@@ -146,19 +146,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // still work even after having tapped the Backspace/Delete key.
                 set_mods(mod_state);
                 return false;
-            }
-        } else { // on release of KC_BSPC
+                }
+            } else { // on release of KC_BSPC
             // In case KC_DEL is still being sent even after the release of KC_BSPC
             if (delkey_registered) {
                 unregister_code(KC_DEL);
                 delkey_registered = false;
                 return false;
+                }
             }
-        }
         // Let QMK process the KC_BSPC keycode as usual outside of shift
         return true;
-    }
-
+        }
+        // case KC_COLN:
+        // case KC_GT:
+        // case KC_RPRN:
+        // case KC_DQT:
     }
     return true;
 };
