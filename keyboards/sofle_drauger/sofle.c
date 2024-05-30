@@ -66,7 +66,7 @@ static void render_logo(void) {
 }
 */
 void print_status_narrow(void) {
-    oled_write_P(PSTR("\n\n"), false);
+    // oled_write_P(PSTR("\n\n"), false);
     // switch (get_highest_layer(layer_state)) {
         // case 0:
             // oled_write_ln_P(PSTR("Qwrt"), false);
@@ -101,6 +101,24 @@ void print_status_narrow(void) {
     // oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
     if(led_usb_state.caps_lock) oled_write_ln_P(PSTR("Caps"), false);
 		else oled_write_ln_P(PSTR(""), false);
+    mod_state = get_mods();
+    if (mod_state & MOD_MASK_GUI) {
+        oled_write_ln_P(PSTR(""), false);
+        oled_write_ln_P(PSTR(""), false);
+        oled_write_ln_P(PSTR(""), false);
+        oled_write_ln_P(PSTR("GUI"), false);
+    if (mod_state & MOD_MASK_ALT) {
+        oled_write_ln_P(PSTR(""), false);
+        oled_write_ln_P(PSTR(""), false);
+        oled_write_ln_P(PSTR("Alt"), false);
+    }
+    if (mod_state & MOD_MASK_SHIFT) {
+        oled_write_ln_P(PSTR(""), false);
+        oled_write_ln_P(PSTR("Shift"), false);
+    }
+    if (mod_state & MOD_MASK_CTRL) {
+        oled_write_ln_P(PSTR("Ctrl"), false);
+    }
 }
 
 bool oled_task_kb(void) {
