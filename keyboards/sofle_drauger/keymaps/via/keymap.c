@@ -163,6 +163,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // case KC_GT:
         // case KC_RPRN:
         // case KC_DQT:
+        // case KC_LNG1:
+        // case KC_LNG2:
     }
     return true;
 };
