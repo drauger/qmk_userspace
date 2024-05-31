@@ -104,40 +104,6 @@ void print_status_narrow(void) {
     // oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
     if(led_usb_state.caps_lock) oled_write_ln_P(PSTR("Caps"), false);
 		else oled_write_ln_P(PSTR(""), false);
-    
-    uint8_t mod_state = get_mods();
-    if (mod_state & MOD_MASK_GUI) {
-        if (record->event.pressed) {
-            oled_set_cursor(0, 12);
-            oled_write_ln_P(PSTR("GUI"), false);
-        } else {
-            
-        }
-    }
-    if (mod_state & MOD_MASK_ALT) {
-        if (record->event.pressed) {
-            oled_set_cursor(0, 10);
-            oled_write_ln_P(PSTR("Alt"), false);
-        } else {
-            
-        }
-    }
-    if (mod_state & MOD_MASK_SHIFT) {
-        if (record->event.pressed) {
-            oled_set_cursor(0, 8);
-            oled_write_ln_P(PSTR("Shft"), false);
-        } else {
-            
-        }
-    }
-    if (mod_state & MOD_MASK_CTRL) {
-        if (record->event.pressed) {
-            oled_set_cursor(0, 6);
-            oled_write_ln_P(PSTR("Ctrl"), false);
-        } else {
-            
-        }
-    }
 }
 
 bool oled_task_kb(void) {
