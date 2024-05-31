@@ -128,38 +128,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Store the current modifier state in the variable for later reference
     mod_state = get_mods();
 	
-    if (mod_state & MOD_MASK_GUI) {
-        oled_set_cursor(0, 12);
-		if (record->event.pressed) {
-            oled_write_ln_P(PSTR("GUI"), false);
-        } else {
-            oled_write_ln_P(PSTR(""), false);
-        }
-    }
-    if (mod_state & MOD_MASK_ALT) {
-		oled_set_cursor(0, 10);
-		if (record->event.pressed) {
-            oled_write_ln_P(PSTR("Alt"), false);
-        } else {
-            oled_write_ln_P(PSTR(""), false);
-        }
-    }
-    if (mod_state & MOD_MASK_SHIFT) {
-		oled_set_cursor(0, 8);
-        if (record->event.pressed) {
-            oled_write_ln_P(PSTR("Shft"), false);
-        } else {
-            oled_write_ln_P(PSTR(""), false);
-        }
-    }
-    if (mod_state & MOD_MASK_CTRL) {
-        oled_set_cursor(0, 6);
-		if (record->event.pressed) {
-            oled_write_ln_P(PSTR("Ctrl"), false);
-        } else {
-            oled_write_ln_P(PSTR(""), false);
-        }
-    }
     switch (keycode) {
     
         case KC_BSPC:
@@ -190,6 +158,51 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
         // Let QMK process the KC_BSPC keycode as usual outside of shift
+        return true;
+        }
+        
+        case KC_LGUI:
+        case KC_RGUI:
+        {
+            oled_set_cursor(0, 12);
+		    if (record->event.pressed) {
+                oled_write_ln_P(PSTR("GUI"), false);
+            } else {
+                oled_write_ln_P(PSTR(""), false);
+            }
+        return true;
+        }
+        case KC_LALT:
+        case KC_RALT:
+        {
+		    oled_set_cursor(0, 10);
+		    if (record->event.pressed) {
+                oled_write_ln_P(PSTR("Alt"), false);
+            } else {
+            oled_write_ln_P(PSTR(""), false);
+            }
+        return true;
+        }
+        case KC_LSFT:
+        case KC_RSFT:
+        {
+		    oled_set_cursor(0, 8);
+            if (record->event.pressed) {
+                oled_write_ln_P(PSTR("Shft"), false);
+            } else {
+                oled_write_ln_P(PSTR(""), false);
+            }
+        return true;
+        }
+            case KC_LCTL:
+            case KC_RCTL:
+        {
+            oled_set_cursor(0, 6);
+		    if (record->event.pressed) {
+                oled_write_ln_P(PSTR("Ctrl"), false);
+            } else {
+                oled_write_ln_P(PSTR(""), false);
+            }
         return true;
         }
         // case KC_COLN:
