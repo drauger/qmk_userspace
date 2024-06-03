@@ -122,6 +122,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static uint8_t language;
 
+bool switchLanguage(uint8_t lang, uint16_t keycode) {
+    uint8_t mod_state = get_mods();
+    language = 2;
+    add_mods(MOD_MASK_SA);
+	register_code(keycode);
+	oled_set_cursor(0, 13);
+    if(lang == 2) oled_write_ln_P(PSTR("  Ru"), false);
+    unregister_code(keycode);
+    set_mods(mod_state);
+    return true;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Initialize variable holding the binary
     // representation of active modifiers.
