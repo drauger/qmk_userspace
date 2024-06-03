@@ -260,28 +260,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             language = 1;
             add_mods(MOD_MASK_SA);
 			register_code(KC_1);
-			unregister_code(KC_1);
 			oled_set_cursor(0, 13);
             if (record->event.pressed) {
                 oled_write_ln_P(PSTR("En"), false);
             // } else {
             //     oled_write_ln_P(PSTR(""), false);
             }
+			unregister_code(KC_1);
             set_mods(mod_state);
             return true;
         }
+        
         case KC_LNG2:
         {
             language = 2;
             add_mods(MOD_MASK_SA);
 			register_code(KC_2);
-			unregister_code(KC_2);
 			oled_set_cursor(0, 13);
             if (record->event.pressed) {
                 oled_write_ln_P(PSTR("En"), false);
             // } else {
                 // oled_write_ln_P(PSTR(""), false);
             }
+			unregister_code(KC_2);
             set_mods(mod_state);
             return true;
         }
