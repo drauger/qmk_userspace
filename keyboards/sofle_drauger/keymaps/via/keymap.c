@@ -225,6 +225,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 uint8_t lang = language;
                 add_mods(MOD_MASK_SHIFT);
 				register_code(KC_1);
+				unregister_code(KC_1);
 				del_mods(MOD_MASK_ALT);
                 register_code(KC_COMMA);
                 // Update the boolean variable to reflect the status of KC_GT
@@ -234,11 +235,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if(lang == 2) {
 					add_mods(MOD_MASK_ALT);
 					register_code(KC_2);
+					unregister_code(KC_2);
 				}
 				set_mods(mod_state);
                 return false;
                 }
-            } else { // on release of KC_DOT
+            } else { // on release of KC_GT
             // In case KC_COMM is still being sent even after the release of KC_GT
             if (key_registered) {
                 unregister_code(KC_COMMA);
@@ -266,7 +268,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_2:
         {
             if (mod_state & MOD_MASK_SA) {
-                language = 1;
+                language = 2;
                 oled_set_cursor(0, 13);
                 if (record->event.pressed) {
                     oled_write_ln_P(PSTR("  Ru"), false);
