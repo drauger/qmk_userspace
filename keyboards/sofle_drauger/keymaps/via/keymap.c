@@ -206,9 +206,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true;
         }
         // case KC_COLN:
-        // case KC_GT:
         // case KC_RPRN:
         // case KC_DQT:
+                
+        case KC_GT:
+        {
+        // Initialize a boolean variable that keeps track
+        // of the key status: registered or not?
+        static bool key_registered;
+        if (record->event.pressed) {
+            // Detect the activation of either shift keys
+            if (mod_state & MOD_MASK_SHIFT) {
+                // First temporarily canceling both shifts so that
+                // shift isn't applied to the keycode
+                del_mods(MOD_MASK_SHIFT);
+                register_code(KC_LT);
+                // Update the boolean variable to reflect the status of KC_DEL
+                key_registered = true;
+                // Reapplying modifier state so that the held shift key(s)
+                // still work even after having tapped the Backspace/Delete key.
+                set_mods(mod_state);
+                return false;
+                }
+            } else { // on release of KC_GT
+            // In case KC_LT is still being sent even after the release of KC_GT
+            if (key_registered) {
+                unregister_code(KC_LT);
+                key_registered = false;
+                return false;
+                }
+            }
+        // Let QMK process the KC_GT keycode as usual outside of shift
+        return true;
+        }
+        
         case KC_1:
         {
             if (mod_state & MOD_MASK_SA) {
