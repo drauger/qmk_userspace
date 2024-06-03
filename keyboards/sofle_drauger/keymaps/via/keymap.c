@@ -120,6 +120,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 };
 
+static uint8_t language;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Initialize variable holding the binary
     // representation of active modifiers.
@@ -172,6 +174,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         return true;
         }
+		
         case KC_LALT:
         case KC_RALT:
         {
@@ -183,6 +186,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         return true;
         }
+		
         case KC_LSFT:
         case KC_RSFT:
         {
@@ -194,8 +198,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         return true;
         }
-            case KC_LCTL:
-            case KC_RCTL:
+		
+        case KC_LCTL:
+        case KC_RCTL:
         {
             oled_set_cursor(0, 5);
 		    if (record->event.pressed) {
@@ -210,40 +215,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // case KC_DQT:
                 
         case KC_GT:
-        {
+        if(get_highest_layer(layer_state) == 1) {
         // Initialize a boolean variable that keeps track
         // of the key status: registered or not?
         static bool key_registered;
         if (record->event.pressed) {
-            // Detect the activation of either shift keys
-            if (mod_state & MOD_MASK_SHIFT) {
-                // First temporarily canceling both shifts so that
-                // shift isn't applied to the keycode
-                del_mods(MOD_MASK_SHIFT);
-                register_code(KC_LT);
-                // Update the boolean variable to reflect the status of KC_DEL
+            // Detect the activation of either alt keys
+            if (mod_state & MOD_MASK_ALT) {
+                uint8_t lang = language;
+                add_mods(MOD_MASK_SHIFT);
+				register_code(KC_1);
+				del_mods(MOD_MASK_ALT);
+                register_code(KC_COMMA);
+                // Update the boolean variable to reflect the status of KC_GT
                 key_registered = true;
-                // Reapplying modifier state so that the held shift key(s)
-                // still work even after having tapped the Backspace/Delete key.
-                set_mods(mod_state);
+                // Reapplying modifier state so that the held alt key(s)
+                // still work even after having tapped the KC_GT key.
+                if(lang == 2) {
+					add_mods(MOD_MASK_ALT);
+					register_code(KC_2);
+				}
+				set_mods(mod_state);
                 return false;
                 }
-            } else { // on release of KC_GT
-            // In case KC_LT is still being sent even after the release of KC_GT
+            } else { // on release of KC_DOT
+            // In case KC_COMM is still being sent even after the release of KC_GT
             if (key_registered) {
-                unregister_code(KC_LT);
+                unregister_code(KC_COMMA);
                 key_registered = false;
                 return false;
                 }
             }
-        // Let QMK process the KC_GT keycode as usual outside of shift
+        // Let QMK process the KC_DOT keycode as usual outside of shift
         return true;
         }
         
         case KC_1:
         {
             if (mod_state & MOD_MASK_SA) {
-                oled_set_cursor(0, 13);
+                language = 1;
+				oled_set_cursor(0, 13);
                 if (record->event.pressed) {
                     oled_write_ln_P(PSTR("En"), false);
                 // } else {
@@ -255,9 +266,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_2:
         {
             if (mod_state & MOD_MASK_SA) {
+                language = 1;
                 oled_set_cursor(0, 13);
                 if (record->event.pressed) {
-                    oled_write_ln_P(PSTR("Ru"), false);
+                    oled_write_ln_P(PSTR("  Ru"), false);
                 // } else {
                 //     oled_write_ln_P(PSTR(""), false);
                 }
