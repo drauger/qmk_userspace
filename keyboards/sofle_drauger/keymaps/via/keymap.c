@@ -120,14 +120,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 };
 
-static uint8_t language;
+static uint8_t lang;
 static uint8_t mod_state;
 
-void switchLanguage(uint8_t lang, bool print) {
+void switchLanguage(uint8_t l, bool print) {
     // uint8_t mod_state = get_mods();
     set_mods(MOD_MASK_SA);
 	if(print) oled_set_cursor(0, 13);
-    if(lang == 2) {
+    if(l == 2) {
 	    register_code(KC_2);
         if(print) oled_write_ln_P(PSTR("  Ru"), false);
         unregister_code(KC_2);
@@ -137,7 +137,7 @@ void switchLanguage(uint8_t lang, bool print) {
         unregister_code(KC_1);
     }
     set_mods(mod_state);
-	language = lang;
+	lang = l;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -236,40 +236,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // if(get_highest_layer(layer_state) == 1) 
 		{
         if (record->event.pressed) {
-            uint8_t lang = language;
-            if(lang == 2) {
-                // language = false;
-                set_mods(MOD_MASK_SA);
-				register_code(KC_1);
-				unregister_code(KC_1);
-				set_mods(mod_state);
-            }
+            // uint8_t l = lang;
+            // if(l == 2) {
+                // set_mods(MOD_MASK_SA);
+				// register_code(KC_1);
+				// unregister_code(KC_1);
+				// set_mods(mod_state);
+            // }
 			add_mods(MOD_MASK_SHIFT);
             // Detect the activation of either alt keys
             if (mod_state & MOD_MASK_ALT) {
 				del_mods(MOD_MASK_ALT);
                 register_code(KC_COMMA);
-                unregister_code(KC_COMMA);
-            } else {
-                register_code(KC_DOT);
-                unregister_code(KC_DOT);
+                // unregister_code(KC_COMMA);
+            // } else {
+                // register_code(KC_DOT);
+                // unregister_code(KC_DOT);
             }
-            if(lang == 2) {
-                // language = true;
-                set_mods(MOD_MASK_SA);
-				register_code(KC_2);
-				unregister_code(KC_2);
-				// set_mods(mod_state);
-            }
+    //         if(l == 2) {
+    //             set_mods(MOD_MASK_SA);
+				// register_code(KC_2);
+				// unregister_code(KC_2);
+				// // set_mods(mod_state);
+    //         }
             set_mods(mod_state);
-            return true;
-            // } else { // on release of KC_GT
+            return false;
+            } else { // on release of KC_GT
             // In case KC_COMM is still being sent even after the release of KC_GT
-            // if (key_registered) {
-            //     unregister_code(KC_COMMA);
-            //     key_registered = false;
-            //     return false;
-            //     }
+            if (key_registered) {
+                unregister_code(KC_COMMA);
+                // key_registered = false;
+                return false;
+                }
             }
         return true;
         }
@@ -277,7 +275,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_LNG1:
         {
             if (record->event.pressed) {
-                // language = false;
                 switchLanguage(1, true);
             }
             return true;
@@ -286,7 +283,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_LNG2:
         {
             if (record->event.pressed) {
-                // language = true;
                 switchLanguage(2, true);
             }
             return true;
@@ -296,7 +292,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         {
             if(mod_state & MOD_MASK_SA)
 				if (record->event.pressed)
-                // language = false;
 					switchLanguage(1, true);
             return true;
         }
@@ -305,7 +300,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         {
             if(mod_state & MOD_MASK_SA)
 				if (record->event.pressed)
-					// language = true;
 					switchLanguage(2, true);
             return true;
         }
