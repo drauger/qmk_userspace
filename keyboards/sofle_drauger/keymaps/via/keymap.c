@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static bool language;
 
-bool switchLanguage(bool print) {
+void  switchLanguage(bool print) {
     uint8_t mod_state = get_mods();
     language != language;
     add_mods(MOD_MASK_SA);
@@ -137,7 +137,6 @@ bool switchLanguage(bool print) {
         unregister_code(KC_1);
     }
     set_mods(mod_state);
-    return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
