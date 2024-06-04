@@ -123,21 +123,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 static uint8_t lang;
 static uint8_t mod_state;
 
-void switchLanguage(uint8_t l, bool print) {
-    // uint8_t mod_state = get_mods();
-    set_mods(MOD_MASK_SA);
-	if(print) oled_set_cursor(0, 13);
-    if(l == 2) {
-	    register_code(KC_2);
-        if(print) oled_write_ln_P(PSTR("  Ru"), false);
-        unregister_code(KC_2);
+void printLanguage(void) {
+    oled_set_cursor(0, 13);
+    if(lang == 2) {
+		oled_write_ln_P(PSTR("  Ru"), false);
     } else {
-	    register_code(KC_1);
-        if(print) oled_write_ln_P(PSTR("En"), false);
-        unregister_code(KC_1);
+		oled_write_ln_P(PSTR("En"), false);
     }
-    set_mods(mod_state);
-	lang = l;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -171,10 +163,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             } else { // on release of KC_BSPC
             // In case KC_DEL is still being sent even after the release of KC_BSPC
-            if (delkey_registered) {
-                unregister_code(KC_DEL);
-                delkey_registered = false;
-                return false;
+				if (delkey_registered) {
+					unregister_code(KC_DEL);
+					delkey_registered = false;
+					return false;
                 }
             }
         // Let QMK process the KC_BSPC keycode as usual outside of shift
@@ -200,7 +192,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		    if (record->event.pressed) {
                 oled_write_ln_P(PSTR("Alt"), false);
             } else {
-            oled_write_ln_P(PSTR(""), false);
+				oled_write_ln_P(PSTR(""), false);
             }
         return true;
         }
@@ -235,47 +227,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_GT:
         // if(get_highest_layer(layer_state) == 1) 
 		{
-        if (record->event.pressed) {
-            // uint8_t l = lang;
-            // if(l == 2) {
-                // set_mods(MOD_MASK_SA);
-				// register_code(KC_1);
-				// unregister_code(KC_1);
-				// set_mods(mod_state);
-            // }
-			add_mods(MOD_MASK_SHIFT);
-            // Detect the activation of either alt keys
-            if (mod_state & MOD_MASK_ALT) {
-				del_mods(MOD_MASK_ALT);
-                register_code(KC_COMMA);
-                // unregister_code(KC_COMMA);
-            // } else {
-                // register_code(KC_DOT);
-                // unregister_code(KC_DOT);
-            }
-    //         if(l == 2) {
-    //             set_mods(MOD_MASK_SA);
-				// register_code(KC_2);
-				// unregister_code(KC_2);
-				// // set_mods(mod_state);
-    //         }
-            set_mods(mod_state);
-            return false;
-            } else { // on release of KC_GT
-            // In case KC_COMM is still being sent even after the release of KC_GT
-            if (key_registered) {
-                unregister_code(KC_COMMA);
-                // key_registered = false;
-                return false;
-                }
-            }
-        return true;
+			static bool key_registered;
+			if (record->event.pressed) {
+				if (mod_state & MOD_MASK_ALT) {
+					set_mods(MOD_MASK_SHIFT);
+					register_code(KC_COMMA);
+					key_registered = true;
+					set_mods(mod_state);
+					return false;
+				}
+				} else {
+					if (key_registered) {
+						key_registered = false;
+						unregister_code(KC_COMMA);
+						return false;
+					}
+				}
+			return true;
         }
         
         case KC_LNG1:
         {
             if (record->event.pressed) {
-                switchLanguage(1, true);
+                set_mods(MOD_MASK_SA);
+				register_code(KC_1);
+				lang = 1;
+				unregister_code(KC_1);
+				set_mods(mod_state);
+				printLanguage();
             }
             return true;
         }
@@ -283,26 +262,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_LNG2:
         {
             if (record->event.pressed) {
-                switchLanguage(2, true);
+                set_mods(MOD_MASK_SA);
+				register_code(KC_2);
+				lang = 2;
+				// unregister_code(KC_2);
+				set_mods(mod_state);
+				printLanguage();
             }
             return true;
         }
         
-        case KC_1:
-        {
-            if(mod_state & MOD_MASK_SA)
-				if (record->event.pressed)
-					switchLanguage(1, true);
-            return true;
-        }
+        // case KC_1:
+        // {
+            // if(mod_state & MOD_MASK_SA)
+				// if (record->event.pressed) {
+					// lang = 1;
+					// printLanguage();
+				// }
+            // return true;
+        // }
         
-        case KC_2:
-        {
-            if(mod_state & MOD_MASK_SA)
-				if (record->event.pressed)
-					switchLanguage(2, true);
-            return true;
-        }
+        // case KC_2:
+        // {
+            // if(mod_state & MOD_MASK_SA)
+				// if (record->event.pressed) {
+					// lang = 2;
+					// printLanguage();
+				// }
+            // return true;
+        // }
     }
     return true;
 };
