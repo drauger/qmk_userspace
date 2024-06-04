@@ -130,11 +130,12 @@ bool switchLanguage(bool print) {
     if(language) {
 	    register_code(KC_2);
         if(print) oled_write_ln_P(PSTR("  Ru"), false);
+        unregister_code(KC_2);
     } else {
 	    register_code(KC_1);
         if(print) oled_write_ln_P(PSTR("En"), false);
+        unregister_code(KC_1);
     }
-    unregister_code(keycode);
     set_mods(mod_state);
     return true;
 }
