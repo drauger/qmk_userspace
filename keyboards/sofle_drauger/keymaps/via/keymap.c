@@ -267,7 +267,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     register_code(KC_2);
 				    lang = 2;
 				    unregister_code(KC_2);
-                } else {{
+                } else {
                     register_code(KC_1);
 				    lang = 1;
 				    unregister_code(KC_1);
@@ -278,25 +278,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
         }
         
-        // case KC_1:
-        // {
-            // if(mod_state & MOD_MASK_SA)
-				// if (record->event.pressed) {
-					// lang = 1;
-					// printLanguage();
-				// }
-            // return true;
-        // }
+        case KC_1:
+        {
+            if(mod_state & MOD_MASK_SA)
+				if (record->event.pressed) {
+					lang = 1;
+					printLanguage();
+				}
+            return true;
+        }
         
-        // case KC_2:
-        // {
-            // if(mod_state & MOD_MASK_SA)
-				// if (record->event.pressed) {
-					// lang = 2;
-					// printLanguage();
-				// }
-            // return true;
-        // }
+        case KC_2:
+        {
+            if(mod_state & MOD_MASK_SA)
+				if (record->event.pressed) {
+					lang = 2;
+					printLanguage();
+				}
+            return true;
+        }
     }
     return true;
 };
