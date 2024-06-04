@@ -49,7 +49,7 @@ const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {1, 0};
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-    oled_set_brightness(63);
+    oled_set_brightness(32);
 	// if (is_keyboard_master()) {
         return OLED_ROTATION_270;
     // }
