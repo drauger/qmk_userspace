@@ -124,7 +124,6 @@ static bool language;
 
 void  switchLanguage(bool print) {
     uint8_t mod_state = get_mods();
-    language != language;
     add_mods(MOD_MASK_SA);
 	if(print) oled_set_cursor(0, 13);
     if(language) {
@@ -238,7 +237,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // static bool key_registered;
         if (record->event.pressed) {
             bool lang = language;
-            if(lang) switchLanguage(false);
+            if(lang) {
+                language = false;
+                switchLanguage(false);
+            }
             add_mods(MOD_MASK_SHIFT);
             // Detect the activation of either alt keys
             if (mod_state & MOD_MASK_ALT) {
@@ -251,7 +253,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_DOT);
                 // key_registered = true;
             }
-            if(lang) switchLanguage(false);
+            if(lang) {
+                language = true;
+                switchLanguage(false);
+            }
             set_mods(mod_state);
             return false;
             // } else { // on release of KC_GT
@@ -266,10 +271,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         
         case KC_LNG1:
+        {
+            if (record->event.pressed) {
+                language = false;
+                switchLanguage(true);
+            }
+            return true;
+        }
+        
         case KC_LNG2:
         {
-            if (record->event.pressed)
+            if (record->event.pressed) {
+                language = true;
                 switchLanguage(true);
+            }
             return true;
         }
     }
