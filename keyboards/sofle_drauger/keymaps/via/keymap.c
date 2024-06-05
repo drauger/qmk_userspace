@@ -123,14 +123,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 static uint8_t lang;
 static uint8_t mod_state;
 
-// void printLanguage(void) {
-    // oled_set_cursor(0, 13);
-    // if(lang == 2) {
-		// oled_write_ln_P(PSTR("  Ru"), false);
-    // } else {
-		// oled_write_ln_P(PSTR("En"), false);
-    // }
-// }
+void switchLanguage(void) {
+    clear_mods();
+	register_code(KC_LSFT);
+	register_code(KC_LALT);
+    if(lang == 2) {
+		tap_code(KC_2);
+    } else {
+		tap_code(KC_1);
+    }
+    unregister_code(KC_LSFT);
+	unregister_code(KC_LALT);
+	// set_mods(mod_state);
+}
+
+void printLanguage(void) {
+    oled_set_cursor(0, 13);
+    if(lang == 2) {
+		oled_write_ln_P(PSTR("  Ru"), false);
+    } else {
+		oled_write_ln_P(PSTR("En"), false);
+    }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Initialize variable holding the binary
