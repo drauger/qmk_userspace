@@ -146,6 +146,11 @@ void printLanguage(void) {
     }
 }
 
+void keyboard_post_init_user(void) {
+    lang = 1;
+    switchLanguage();
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Initialize variable holding the binary
     // representation of active modifiers.
