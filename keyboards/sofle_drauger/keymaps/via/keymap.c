@@ -241,21 +241,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_GT:
         // if(get_highest_layer(layer_state) == 1) 
 		{
-			static bool key_registered;
+			// static bool key_registered;
 			if (record->event.pressed) {
 				if (mod_state & MOD_MASK_ALT) {
 					set_mods(MOD_MASK_SHIFT);
 					tap_code(KC_COMMA);
-					key_registered = true;
+					// key_registered = true;
 					set_mods(mod_state);
 					return false;
 				}
-				} else {
-					if (key_registered) {
-						key_registered = false;
-						unregister_code(KC_COMMA);
-						return false;
-					}
+				// } else {
+				// 	if (key_registered) {
+				// 		key_registered = false;
+				// 		unregister_code(KC_COMMA);
+				// 		return false;
+				// 	}
 				}
 			return true;
         }
