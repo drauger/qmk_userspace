@@ -250,29 +250,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     switchLanguage();
                 }
 				// set_mods(mod_state);
-				add_mods(MOD_MASK_SHIFT);
                 if (mod_state & MOD_MASK_ALT) {
+					set_mods(MOD_MASK_SHIFT);
 					tap_code(KC_COMMA);
 					// key_registered = true;
 					// set_mods(mod_state);
-					return false;
+					// return false;
 				} else {
+					set_mods(MOD_MASK_SHIFT);
 					tap_code(KC_DOT);
 					// key_registered = true;
 					// set_mods(mod_state);
-					return false;
+					// return false;
 				}
-				} else {
+                if(l == 2) {
+                    lang = 2;
+                    switchLanguage();
+                }
+				set_mods(mod_state);
+				return false;
+				// } else {
 				// 	if (key_registered) {
 				// 		key_registered = false;
 				// 		unregister_code(KC_COMMA);
-				// 		return false;
+						// return false;
 					// }
-                    if(l == 2) {
-                        lang = 2;
-                        switchLanguage();
-                    }
-					set_mods(mod_state);
 				}
 			return true;
         }
