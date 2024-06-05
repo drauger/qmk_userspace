@@ -242,20 +242,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // if(get_highest_layer(layer_state) == 1) 
 		{
 			// static bool key_registered;
+            uint8_t l;
 			if (record->event.pressed) {
-				if (mod_state & MOD_MASK_ALT) {
+				l = lang;
+                if(l == 2) {
+                    lang = 1;
+                    switchLanguage();
+                }
+                if (mod_state & MOD_MASK_ALT) {
 					set_mods(MOD_MASK_SHIFT);
 					tap_code(KC_COMMA);
 					// key_registered = true;
 					set_mods(mod_state);
 					return false;
 				}
-				// } else {
+				} else {
 				// 	if (key_registered) {
 				// 		key_registered = false;
 				// 		unregister_code(KC_COMMA);
 				// 		return false;
-				// 	}
+					// }
+                    if(l == 2) {
+                        lang = 2;
+                        switchLanguage();
+                    }
 				}
 			return true;
         }
