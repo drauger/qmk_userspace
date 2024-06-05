@@ -235,9 +235,98 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true;
         }
         
-        // case KC_COLN:
-        // case KC_RPRN:KC_DLR, KC_PERC
-        // case KC_DQT:
+        case KC_COLN:
+		{
+			uint8_t l;
+			if (record->event.pressed) {
+				l = lang;
+                if(l == 2) {
+                    lang = 1;
+                    switchLanguage();
+                }
+                if (mod_state & MOD_MASK_ALT) {
+					set_mods(MOD_MASK_SHIFT);
+				}
+                tap_code(KC_SCLN);
+                if(l == 2) {
+                    lang = 2;
+                    switchLanguage();
+                }
+				set_mods(mod_state);
+				return false;
+				}
+			return true;
+        }
+        
+        case KC_RPRN:
+		{
+			uint8_t l;
+			if (record->event.pressed) {
+				l = lang;
+                if(l == 2) {
+                    lang = 1;
+                    switchLanguage();
+                }
+                if (mod_state & MOD_MASK_ALT) {
+					set_mods(MOD_MASK_SHIFT);
+					tap_code(KC_LPRN);
+				} else {
+					set_mods(MOD_MASK_SHIFT);
+					tap_code(KC_RPRN);
+				}
+                if(l == 2) {
+                    lang = 2;
+                    switchLanguage();
+                }
+				set_mods(mod_state);
+				return false;
+				}
+			return true;
+        }
+        
+        case KC_DLR:
+		{
+			uint8_t l;
+			if (record->event.pressed) {
+				l = lang;
+                if(l == 2) {
+                    lang = 1;
+                    switchLanguage();
+                }
+                set_mods(MOD_MASK_SHIFT);
+				tap_code(KC_4);
+                if(l == 2) {
+                    lang = 2;
+                    switchLanguage();
+                }
+				set_mods(mod_state);
+				return false;
+				}
+			return true;
+        }
+        
+        case KC_DQT:
+		{
+			uint8_t l;
+			if (record->event.pressed) {
+				l = lang;
+                if(l == 2) {
+                    lang = 1;
+                    switchLanguage();
+                }
+                if (mod_state & MOD_MASK_ALT) {
+					set_mods(MOD_MASK_SHIFT);
+				}
+                tap_code(KC_QUOT);
+                if(l == 2) {
+                    lang = 2;
+                    switchLanguage();
+                }
+				set_mods(mod_state);
+				return false;
+				}
+			return true;
+        }
                 
         case KC_GT:
         // if(get_highest_layer(layer_state) == 1) 
@@ -249,7 +338,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     lang = 1;
                     switchLanguage();
                 }
-				// set_mods(mod_state);
                 if (mod_state & MOD_MASK_ALT) {
 					set_mods(MOD_MASK_SHIFT);
 					tap_code(KC_COMMA);
