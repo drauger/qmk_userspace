@@ -21,4 +21,4 @@
 #endif
 
 #define OLED_BRIGHTNESS 32
-#define OLED_TIMEOUT 30000
+#define OLED_TIMEOUT 15000
