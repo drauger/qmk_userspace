@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [1] = LAYOUT(
    KC_GRV, KC_MUTE,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                    KC_PSLS,   KC_P7,   KC_P8,   KC_P9, KC_RPRN,  KC_EQL,
    KC_TAB, KC_VOLU, KC_HOME,   KC_UP,  KC_END, KC_PGUP,                    KC_PAST,   KC_P4,   KC_P5,   KC_P6, KC_LPRN, KC_RBRC,
-  KC_LGUI, KC_VOLD, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                    KC_PMNS,   KC_P1,   KC_P2,   KC_P3, KC_SCLN, KC_QUOT,
+  KC_LGUI, KC_VOLD, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                    KC_PMNS,   KC_P1,   KC_P2,   KC_P3, KC_COLN,  KC_DQT,
   KC_LSFT, KC_CAPS, KC_BTN1, KC_BTN3, KC_BTN2,  KC_PWR, RGB_TOG,  C(KC_A), KC_PPLS,   KC_P0, KC_PDOT,   KC_GT, KC_BSLS, KC_RSFT,
                     KC_TRNS, KC_TRNS, KC_TRNS,   TG(2), KC_TRNS,  KC_TRNS,   TG(2), KC_TRNS, KC_TRNS, KC_TRNS
 ),
@@ -234,15 +234,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         return true;
         }
+        
         // case KC_COLN:
-        // case KC_RPRN:
+        // case KC_RPRN:KC_DLR, KC_PERC
         // case KC_DQT:
                 
         case KC_GT:
         // if(get_highest_layer(layer_state) == 1) 
 		{
-			// static bool key_registered;
-            uint8_t l;
+			uint8_t l;
 			if (record->event.pressed) {
 				l = lang;
                 if(l == 2) {
@@ -253,15 +253,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (mod_state & MOD_MASK_ALT) {
 					set_mods(MOD_MASK_SHIFT);
 					tap_code(KC_COMMA);
-					// key_registered = true;
-					// set_mods(mod_state);
-					// return false;
 				} else {
 					set_mods(MOD_MASK_SHIFT);
 					tap_code(KC_DOT);
-					// key_registered = true;
-					// set_mods(mod_state);
-					// return false;
 				}
                 if(l == 2) {
                     lang = 2;
@@ -269,12 +263,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
 				set_mods(mod_state);
 				return false;
-				// } else {
-				// 	if (key_registered) {
-				// 		key_registered = false;
-				// 		unregister_code(KC_COMMA);
-						// return false;
-					// }
 				}
 			return true;
         }
@@ -282,19 +270,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_LNG1:
         {
             if (record->event.pressed) {
-                // set_mods(MOD_MASK_SA);
-    //             clear_mods();
-				// register_code(KC_LSFT);
-				// register_code(KC_LALT);
-				// tap_code(KC_1);
 				lang = 1;
                 switchLanguage();
                 printLanguage();
-				// oled_set_cursor(0, 13);
-				// oled_write_ln_P(PSTR("En"), false);
-				// unregister_code(KC_LSFT);
-				// unregister_code(KC_LALT);
-				// set_mods(mod_state);
             }
             return true;
         }
@@ -302,19 +280,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_LNG2:
         {
             if (record->event.pressed) {
-				// set_mods(MOD_MASK_SA);
-    //             clear_mods();
-				// register_code(KC_LSFT);
-				// register_code(KC_LALT);
-				// tap_code(KC_2);
 				lang = 2;
                 switchLanguage();
                 printLanguage();
-				// oled_set_cursor(0, 13);
-				// oled_write_ln_P(PSTR("  Ru"), false);
-				// unregister_code(KC_LSFT);
-				// unregister_code(KC_LALT);
-				// set_mods(mod_state);
             }
             return true;
         }
@@ -324,8 +292,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if(mod_state & MOD_MASK_SA)
 				if (record->event.pressed) {
 					lang = 1;
-					// oled_set_cursor(0, 13);
-					// oled_write_ln_P(PSTR("En"), false);
 					printLanguage();
 				}
             return true;
@@ -336,8 +302,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if(mod_state & MOD_MASK_SA)
 				if (record->event.pressed) {
 					lang = 2;
-					// oled_set_cursor(0, 13);
-					// oled_write_ln_P(PSTR("  Ru"), false);
 					printLanguage();
 				}
             return true;
