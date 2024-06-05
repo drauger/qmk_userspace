@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [1] = LAYOUT(
    KC_GRV, KC_MUTE,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                    KC_PSLS,   KC_P7,   KC_P8,   KC_P9, KC_RPRN,  KC_EQL,
-   KC_TAB, KC_VOLU, KC_HOME,   KC_UP,  KC_END, KC_PGUP,                    KC_PAST,   KC_P4,   KC_P5,   KC_P6, KC_LPRN, KC_RBRC,
+   KC_TAB, KC_VOLU, KC_HOME,   KC_UP,  KC_END, KC_PGUP,                    KC_PAST,   KC_P4,   KC_P5,   KC_P6, KC_AMPR, KC_RBRC,
   KC_LGUI, KC_VOLD, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                    KC_PMNS,   KC_P1,   KC_P2,   KC_P3, KC_COLN,  KC_DQT,
   KC_LSFT, KC_CAPS, KC_BTN1, KC_BTN3, KC_BTN2,  KC_PWR, RGB_TOG,  C(KC_A), KC_PPLS,   KC_P0, KC_PDOT,   KC_GT, KC_BSLS, KC_RSFT,
                     KC_TRNS, KC_TRNS, KC_TRNS,   TG(2), KC_TRNS,  KC_TRNS,   TG(2), KC_TRNS, KC_TRNS, KC_TRNS
@@ -237,21 +237,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         case KC_COLN:
 		{
-			uint8_t l;
 			if (record->event.pressed) {
-				l = lang;
-                if(l == 2) {
-                    lang = 1;
-                    switchLanguage();
-                }
-                if (mod_state & MOD_MASK_ALT) {
-					set_mods(MOD_MASK_SHIFT);
+                if(lang == 2) {
+					if (mod_state & MOD_MASK_CTRL) {
+						set_mods(MOD_MASK_SHIFT);
+						tap_code(KC_6);
+					} else {
+						set_mods(MOD_MASK_SHIFT);
+						tap_code(KC_4);
+					}
+                } else {
+					if (mod_state & MOD_MASK_CTRL) {
+						set_mods(MOD_MASK_SHIFT);
+						tap_code(KC_SCLN);
+					} else {
+						tap_code(KC_SCLN);
+					}
 				}
-                tap_code(KC_SCLN);
-                if(l == 2) {
-                    lang = 2;
-                    switchLanguage();
-                }
 				set_mods(mod_state);
 				return false;
 				}
@@ -260,24 +262,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         case KC_RPRN:
 		{
-			uint8_t l;
 			if (record->event.pressed) {
-				l = lang;
-                if(l == 2) {
-                    lang = 1;
-                    switchLanguage();
-                }
-                if (mod_state & MOD_MASK_ALT) {
+                if (mod_state & MOD_MASK_CTRL) {
 					set_mods(MOD_MASK_SHIFT);
-					tap_code(KC_LPRN);
+					tap_code(KC_9);
 				} else {
 					set_mods(MOD_MASK_SHIFT);
-					tap_code(KC_RPRN);
+					tap_code(KC_0);
 				}
-                if(l == 2) {
-                    lang = 2;
-                    switchLanguage();
-                }
 				set_mods(mod_state);
 				return false;
 				}
@@ -305,6 +297,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return true;
         }
         
+        case KC_AMPR:
+		{
+			uint8_t l;
+			if (record->event.pressed) {
+				l = lang;
+                if(l == 2) {
+                    lang = 1;
+                    switchLanguage();
+                }
+                set_mods(MOD_MASK_SHIFT);
+				tap_code(KC_7);
+                if(l == 2) {
+                    lang = 2;
+                    switchLanguage();
+                }
+				set_mods(mod_state);
+				return false;
+				}
+			return true;
+        }
+        
         case KC_DQT:
 		{
 			uint8_t l;
@@ -314,10 +327,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     lang = 1;
                     switchLanguage();
                 }
-                if (mod_state & MOD_MASK_ALT) {
+                if (mod_state & MOD_MASK_CTRL) {
 					set_mods(MOD_MASK_SHIFT);
+					tap_code(KC_QUOT);
+				}  else {
+					tap_code(KC_QUOT);
 				}
-                tap_code(KC_QUOT);
                 if(l == 2) {
                     lang = 2;
                     switchLanguage();
@@ -329,7 +344,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
                 
         case KC_GT:
-        // if(get_highest_layer(layer_state) == 1) 
 		{
 			uint8_t l;
 			if (record->event.pressed) {
@@ -338,7 +352,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     lang = 1;
                     switchLanguage();
                 }
-                if (mod_state & MOD_MASK_ALT) {
+                if (mod_state & MOD_MASK_CTRL) {
 					set_mods(MOD_MASK_SHIFT);
 					tap_code(KC_COMMA);
 				} else {
