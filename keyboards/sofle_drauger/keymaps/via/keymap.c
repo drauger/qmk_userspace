@@ -134,7 +134,7 @@ void switchLanguage(void) {
     }
     unregister_code(KC_LSFT);
 	unregister_code(KC_LALT);
-	// set_mods(mod_state);
+	set_mods(mod_state);
 }
 
 void printLanguage(void) {
@@ -249,7 +249,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     lang = 1;
                     switchLanguage();
                 }
-				set_mods(mod_state);
+				// set_mods(mod_state);
 				add_mods(MOD_MASK_SHIFT);
                 if (mod_state & MOD_MASK_ALT) {
 					tap_code(KC_COMMA);
@@ -292,7 +292,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				// oled_write_ln_P(PSTR("En"), false);
 				// unregister_code(KC_LSFT);
 				// unregister_code(KC_LALT);
-				set_mods(mod_state);
+				// set_mods(mod_state);
             }
             return true;
         }
@@ -312,7 +312,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				// oled_write_ln_P(PSTR("  Ru"), false);
 				// unregister_code(KC_LSFT);
 				// unregister_code(KC_LALT);
-				set_mods(mod_state);
+				// set_mods(mod_state);
             }
             return true;
         }
