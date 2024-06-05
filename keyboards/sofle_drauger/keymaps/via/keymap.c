@@ -249,11 +249,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     lang = 1;
                     switchLanguage();
                 }
+				set_mods(mod_state);
+				add_mods(MOD_MASK_SHIFT);
                 if (mod_state & MOD_MASK_ALT) {
-					set_mods(MOD_MASK_SHIFT);
 					tap_code(KC_COMMA);
 					// key_registered = true;
-					set_mods(mod_state);
+					// set_mods(mod_state);
+					return false;
+				} else {
+					tap_code(KC_DOT);
+					// key_registered = true;
+					// set_mods(mod_state);
 					return false;
 				}
 				} else {
@@ -266,6 +272,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         lang = 2;
                         switchLanguage();
                     }
+					set_mods(mod_state);
 				}
 			return true;
         }
