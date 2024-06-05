@@ -264,16 +264,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         {
             if (record->event.pressed) {
                 // set_mods(MOD_MASK_SA);
-                clear_mods();
-				register_code(KC_LSFT);
-				register_code(KC_LALT);
-				tap_code(KC_1);
+    //             clear_mods();
+				// register_code(KC_LSFT);
+				// register_code(KC_LALT);
+				// tap_code(KC_1);
 				lang = 1;
-				oled_set_cursor(0, 13);
-				oled_write_ln_P(PSTR("En"), false);
-				// unregister_code(KC_1);
-				unregister_code(KC_LSFT);
-				unregister_code(KC_LALT);
+                switchLanguage();
+                printLanguage();
+				// oled_set_cursor(0, 13);
+				// oled_write_ln_P(PSTR("En"), false);
+				// unregister_code(KC_LSFT);
+				// unregister_code(KC_LALT);
 				set_mods(mod_state);
             }
             return true;
@@ -283,16 +284,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         {
             if (record->event.pressed) {
 				// set_mods(MOD_MASK_SA);
-                clear_mods();
-				register_code(KC_LSFT);
-				register_code(KC_LALT);
-				tap_code(KC_2);
+    //             clear_mods();
+				// register_code(KC_LSFT);
+				// register_code(KC_LALT);
+				// tap_code(KC_2);
 				lang = 2;
-				oled_set_cursor(0, 13);
-				oled_write_ln_P(PSTR("  Ru"), false);
-				// unregister_code(KC_2);
-				unregister_code(KC_LSFT);
-				unregister_code(KC_LALT);
+                switchLanguage();
+                printLanguage();
+				// oled_set_cursor(0, 13);
+				// oled_write_ln_P(PSTR("  Ru"), false);
+				// unregister_code(KC_LSFT);
+				// unregister_code(KC_LALT);
 				set_mods(mod_state);
             }
             return true;
@@ -303,8 +305,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if(mod_state & MOD_MASK_SA)
 				if (record->event.pressed) {
 					lang = 1;
-					oled_set_cursor(0, 13);
-					oled_write_ln_P(PSTR("En"), false);
+					// oled_set_cursor(0, 13);
+					// oled_write_ln_P(PSTR("En"), false);
+					printLanguage();
 				}
             return true;
         }
@@ -314,9 +317,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if(mod_state & MOD_MASK_SA)
 				if (record->event.pressed) {
 					lang = 2;
-					oled_set_cursor(0, 13);
-					oled_write_ln_P(PSTR("  Ru"), false);
-					// printLanguage();
+					// oled_set_cursor(0, 13);
+					// oled_write_ln_P(PSTR("  Ru"), false);
+					printLanguage();
 				}
             return true;
         }
