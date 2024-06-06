@@ -396,7 +396,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         case KC_1:
         {
-            if(mod_state & MOD_MASK_SA)
+            if(mod_state == (MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT)))
 				if (record->event.pressed) {
 					lang = 1;
 					printLanguage();
@@ -406,7 +406,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         case KC_2:
         {
-            if(mod_state & MOD_MASK_SA)
+            if(mod_state == (MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT)))
 				if (record->event.pressed) {
 					lang = 2;
 					printLanguage();
