@@ -149,6 +149,8 @@ void printLanguage(void) {
 void keyboard_post_init_user(void) {
     lang = 1;
     switchLanguage();
+	if (is_keyboard_master())
+		printLanguage();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
