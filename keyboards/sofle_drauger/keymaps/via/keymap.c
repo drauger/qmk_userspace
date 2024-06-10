@@ -160,6 +160,7 @@ void keyboard_post_init_user(void) {
     switchLanguage();
 	// if (is_keyboard_master())
 	// 	printLanguage();
+    rgb_matrix_enable_noeeprom();
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
 }
 
@@ -448,7 +449,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			} else {
                  
             }
-            return true;
+            return false;
         }
     }
     return true;
