@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static uint8_t lang;
 static uint8_t mod_state;
-
+static bool isRGBon;
 
 void switchLanguage(void) {
     clear_mods();
@@ -143,12 +143,12 @@ void printLanguage(bool print) {
     if(print) {
         if(lang == 2) {
 		    oled_write_ln_P(PSTR("  Ru"), false);
-            if(rgb_matrix_is_enabled())
-                rgb_matrix_set_color(70, RGB_PURPLE)
+            if(isRGBon)
+                rgb_matrix_set_color(57, RGB_PURPLE)
         } else {
 		    oled_write_ln_P(PSTR("En"), false);
-            if(rgb_matrix_is_enabled())
-                rgb_matrix_set_color(70, RGB_ORANGE)
+            if(isRGBon)
+                rgb_matrix_set_color(57, RGB_ORANGE)
         }
     } else {
         oled_write_ln_P(PSTR(""), false);
@@ -160,6 +160,7 @@ void keyboard_post_init_user(void) {
     switchLanguage();
 	// if (is_keyboard_master())
 	// 	printLanguage();
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -433,15 +434,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
         }
         
-   //      case RGB_TOG:
-   //      {
-   //          if (record->event.pressed) {
-					
-			// } else {
-                    
-   //          }
-   //          return true;
-   //      }
+        case RGB_TOG:
+        {
+            if (record->event.pressed) {
+				if(isRGBon) {
+                    isRGBon = false;
+                    rgb = hsv_to_rgb(rgb_matrix_get_hsv();
+                    rgb_matrix_sethsv_noeeprom(HSV_OFF);
+                } else {
+                    isRGBon = true;
+                    rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+                }
+			} else {
+                 
+            }
+            return true;
+        }
     }
     return true;
 };
