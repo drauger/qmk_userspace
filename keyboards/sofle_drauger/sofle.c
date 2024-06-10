@@ -66,6 +66,7 @@ static void render_logo(void) {
 }
 */
 void print_status_narrow(void) {
+    RGB rgb = hsv_to_rgb(rgb_matrix_get_hsv();
     // oled_write_P(PSTR("\n\n"), false);
     // switch (get_highest_layer(layer_state)) {
         // case 0:
@@ -102,8 +103,15 @@ void print_status_narrow(void) {
     oled_set_cursor(0, 3);
     led_t led_usb_state = host_keyboard_led_state();
     // oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
-    if(led_usb_state.caps_lock) oled_write_ln_P(PSTR("Caps"), false);
-		else oled_write_ln_P(PSTR(""), false);
+    if(led_usb_state.caps_lock) {
+        oled_write_ln_P(PSTR("Caps"), false);
+            if(rgb_matrix_is_enabled())
+                rgb_matrix_set_color(8, RGB_RED)
+        } else {
+            oled_write_ln_P(PSTR(""), false);
+            if(rgb_matrix_is_enabled())
+                rgb_matrix_set_color(70, rgb.r, rgb.g, rgb.b)
+        }
 }
 
 bool oled_task_kb(void) {
