@@ -54,11 +54,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * LOWER - NUM
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * | ESC  | Mute |  @   |  #   |  $   |  %   |                    |   /  |   7  |   8  |   9  |  )(  |  =   |
+ * | ESC  | BRT  |  vDn |  vUp |  $   |  %   |                    |   /  |   7  |   8  |   9  |  )(  |  =   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | TAB  | vUp  | Home |  Up  | End  | PgUp |                    |   *  |   4  |   5  |   6  |   &  |  ]   |
+ * | TAB  | SAT  | Home |  Up  | End  | PgUp |                    |   *  |   4  |   5  |   6  |   &  |  ]   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | WIN  | vDn  | Left | Down | Right| PgDn |-------.    ,-------|   -  |   1  |   2  |   3  |   ;  |  '   |
+ * | WIN  | HUE  | Left | Down | Right| PgDn |-------.    ,-------|   -  |   1  |   2  |   3  |   ;  |  '   |
  * |------+------+------+------+------+------|  RGB  |    | CtrlA |------+------+------+------+------+------|
  * |LShift| Caps |  m1  | m3   |  m2  | Power|-------|    |-------|   +  |   0  |   ,  |  ><  |   \  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -68,9 +68,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [1] = LAYOUT(
-   KC_GRV, KC_MUTE,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                    KC_PSLS,   KC_P7,   KC_P8,   KC_P9, KC_RPRN,  KC_EQL,
-   KC_TAB, KC_VOLU, KC_HOME,   KC_UP,  KC_END, KC_PGUP,                    KC_PAST,   KC_P4,   KC_P5,   KC_P6, KC_AMPR, KC_RBRC,
-  KC_LGUI, KC_VOLD, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                    KC_PMNS,   KC_P1,   KC_P2,   KC_P3, KC_COLN,  KC_DQT,
+   KC_GRV, RGB_VAI, KC_VOLD, KC_VOLU,  KC_DLR, KC_PERC,                    KC_PSLS,   KC_P7,   KC_P8,   KC_P9, KC_RPRN,  KC_EQL,
+   KC_TAB, RGB_SAI, KC_HOME,   KC_UP,  KC_END, KC_PGUP,                    KC_PAST,   KC_P4,   KC_P5,   KC_P6, KC_AMPR, KC_RBRC,
+  KC_LGUI, RGB_HUI, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                    KC_PMNS,   KC_P1,   KC_P2,   KC_P3, KC_COLN,  KC_DQT,
   KC_LSFT, KC_CAPS, KC_BTN1, KC_BTN3, KC_BTN2,  KC_PWR, RGB_TOG,  C(KC_A), KC_PPLS,   KC_P0, KC_PDOT,   KC_GT, KC_BSLS, KC_RSFT,
                     KC_TRNS, KC_TRNS, KC_TRNS,   TG(2), KC_TRNS,  KC_TRNS,   TG(2), KC_TRNS, KC_TRNS, KC_TRNS
 ),
@@ -123,6 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 static uint8_t lang;
 static uint8_t mod_state;
 
+
 void switchLanguage(void) {
     clear_mods();
 	register_code(KC_LSFT);
@@ -137,20 +138,28 @@ void switchLanguage(void) {
 	set_mods(mod_state);
 }
 
-void printLanguage(void) {
+void printLanguage(bool print) {
     oled_set_cursor(0, 13);
-    if(lang == 2) {
-		oled_write_ln_P(PSTR("  Ru"), false);
+    if(print) {
+        if(lang == 2) {
+		    oled_write_ln_P(PSTR("  Ru"), false);
+            if(rgb_matrix_is_enabled())
+                rgb_matrix_set_color(70, RGB_PURPLE)
+        } else {
+		    oled_write_ln_P(PSTR("En"), false);
+            if(rgb_matrix_is_enabled())
+                rgb_matrix_set_color(70, RGB_ORANGE)
+        }
     } else {
-		oled_write_ln_P(PSTR("En"), false);
+        oled_write_ln_P(PSTR(""), false);
     }
 }
 
 void keyboard_post_init_user(void) {
     lang = 1;
     switchLanguage();
-	if (is_keyboard_master())
-		printLanguage();
+	// if (is_keyboard_master())
+	// 	printLanguage();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -381,9 +390,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
 				lang = 1;
                 switchLanguage();
-                printLanguage();
+                printLanguage(true);
+            } else {
+                printLanguage(false);
             }
-            return true;
+            return false;
         }
         
         case KC_LNG2:
@@ -391,9 +402,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
 				lang = 2;
                 switchLanguage();
-                printLanguage();
+                printLanguage(true);
+            } else {
+                printLanguage(false);
             }
-            return true;
+            return false;
         }
         
         case KC_1:
@@ -401,8 +414,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if(mod_state == (MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT)))
 				if (record->event.pressed) {
 					lang = 1;
-					printLanguage();
-				}
+					printLanguage(true);
+				} else {
+                    printLanguage(false);
+                }
             return true;
         }
         
@@ -411,10 +426,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if(mod_state == (MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT)))
 				if (record->event.pressed) {
 					lang = 2;
-					printLanguage();
-				}
+					printLanguage(true);
+				} else {
+                    printLanguage(false);
+                }
             return true;
         }
+        
+   //      case RGB_TOG:
+   //      {
+   //          if (record->event.pressed) {
+					
+			// } else {
+                    
+   //          }
+   //          return true;
+   //      }
     }
     return true;
 };
