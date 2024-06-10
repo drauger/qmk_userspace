@@ -69,6 +69,7 @@ RGB rgb;
 
 void print_status_narrow(void) {
     rgb = hsv_to_rgb(rgb_matrix_get_hsv();
+    led_t led_usb_state = host_keyboard_led_state();
     // oled_write_P(PSTR("\n\n"), false);
     // switch (get_highest_layer(layer_state)) {
         // case 0:
@@ -91,6 +92,8 @@ void print_status_narrow(void) {
                 rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
             break;
         case 1:
+            if(!led_usb_state.num_lock)
+                tap_code(KC_NUM);
             oled_write_ln_P(PSTR("Num"), false);
             if(isRGBon) {
                 RGB_MAGENTA(12, RGB_RED);
@@ -131,7 +134,6 @@ void print_status_narrow(void) {
 
     // oled_write_P(PSTR("\n\n"), false);
     oled_set_cursor(0, 3);
-    led_t led_usb_state = host_keyboard_led_state();
     // oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
     if(led_usb_state.caps_lock) {
         oled_write_ln_P(PSTR("Caps"), false);
