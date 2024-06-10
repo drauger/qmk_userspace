@@ -85,12 +85,40 @@ void print_status_narrow(void) {
     switch (get_highest_layer(layer_state)) {
         case 0:
             oled_write_ln_P(PSTR(""), false);
+            if(rgb_matrix_is_enabled())
+                rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
             break;
         case 1:
             oled_write_ln_P(PSTR("Num"), false);
+            if(rgb_matrix_is_enabled()) {
+                RGB_MAGENTA(12, RGB_RED);
+                RGB_MAGENTA(16, RGB_RED);
+                RGB_MAGENTA(17, RGB_RED);
+                RGB_MAGENTA(22, RGB_RED);
+                RGB_MAGENTA(42, RGB_RED);
+                RGB_MAGENTA(43, RGB_RED);
+                RGB_MAGENTA(44, RGB_RED);
+                RGB_MAGENTA(45, RGB_RED);
+                RGB_MAGENTA(47, RGB_RED);
+                RGB_MAGENTA(50, RGB_RED);
+                RGB_MAGENTA(51, RGB_RED);
+                RGB_MAGENTA(52, RGB_RED);
+                RGB_MAGENTA(53, RGB_RED);
+                RGB_MAGENTA(54, RGB_RED);
+            }
             break;
         case 2:
             oled_write_ln_P(PSTR("Fn"), false);
+            if(rgb_matrix_is_enabled()) {
+                rgb_matrix_set_color(12, RGB_CORAL);
+                rgb_matrix_set_color(16, RGB_CORAL);
+                rgb_matrix_set_color(17, RGB_CORAL);
+                rgb_matrix_set_color(22, RGB_CORAL);
+                rgb_matrix_set_color(42, RGB_CORAL);
+                rgb_matrix_set_color(46, RGB_CORAL);
+                rgb_matrix_set_color(47, RGB_CORAL);
+                rgb_matrix_set_color(52, RGB_CORAL);
+            }
             break;
         // case 3:
             // oled_write_ln_P(PSTR("Adj"), false);
@@ -106,11 +134,11 @@ void print_status_narrow(void) {
     if(led_usb_state.caps_lock) {
         oled_write_ln_P(PSTR("Caps"), false);
             if(rgb_matrix_is_enabled())
-                rgb_matrix_set_color(8, RGB_RED)
+                rgb_matrix_set_color(8, RGB_RED);
         } else {
             oled_write_ln_P(PSTR(""), false);
             if(rgb_matrix_is_enabled())
-                rgb_matrix_set_color(70, rgb.r, rgb.g, rgb.b)
+                rgb_matrix_set_color(70, rgb.r, rgb.g, rgb.b);
         }
 }
 
