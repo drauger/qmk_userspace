@@ -257,16 +257,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		{
 			if (record->event.pressed) {
                 if(lang == 2) {
-					if (mod_state & MOD_MASK_CTRL) {
-						set_mods(MOD_MASK_SHIFT);
+					if (mod_state & MOD_MASK_SHIFT) {//MOD_MASK_CTRL) {
+						// set_mods(MOD_MASK_SHIFT);
 						tap_code(KC_6);
 					} else {
 						set_mods(MOD_MASK_SHIFT);
 						tap_code(KC_4);
 					}
                 } else {
-					if (mod_state & MOD_MASK_CTRL) {
-						set_mods(MOD_MASK_SHIFT);
+					if (mod_state & MOD_MASK_SHIFT) {//MOD_MASK_CTRL) {
+						// set_mods(MOD_MASK_SHIFT);
 						tap_code(KC_SCLN);
 					} else {
 						tap_code(KC_SCLN);
@@ -281,8 +281,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_RPRN:
 		{
 			if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-					set_mods(MOD_MASK_SHIFT);
+                if (mod_state & MOD_MASK_SHIFT) {//MOD_MASK_CTRL) {
+					// set_mods(MOD_MASK_SHIFT);
 					tap_code(KC_9);
 				} else {
 					set_mods(MOD_MASK_SHIFT);
@@ -342,20 +342,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if (record->event.pressed) {
 				l = lang;
                 if(l == 2) {
-                    lang = 1;
-                    switchLanguage();
-                }
-                if (mod_state & MOD_MASK_CTRL) {
+                    // lang = 1;
+                    // switchLanguage();
+                // }
+                // if (mod_state & MOD_MASK_CTRL) {
 					set_mods(MOD_MASK_SHIFT);
-					tap_code(KC_QUOT);
+					tap_code(KC_2);
 				}  else {
+                    set_mods(MOD_MASK_SHIFT);
 					tap_code(KC_QUOT);
 				}
-                if(l == 2) {
-                    lang = 2;
-                    switchLanguage();
-                }
-				set_mods(mod_state);
+                // if(l == 2) {
+                //     lang = 2;
+                //     switchLanguage();
+                // }
+				// set_mods(mod_state);
 				return false;
 				}
 			return true;
@@ -370,8 +371,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     lang = 1;
                     switchLanguage();
                 }
-                if (mod_state & MOD_MASK_CTRL) {
-					set_mods(MOD_MASK_SHIFT);
+                if (mod_state & MOD_MASK_SHIFT) {//MOD_MASK_CTRL) {
+					// set_mods(MOD_MASK_SHIFT);
 					tap_code(KC_COMMA);
 				} else {
 					set_mods(MOD_MASK_SHIFT);
