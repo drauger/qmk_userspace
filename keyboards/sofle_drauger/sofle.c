@@ -65,10 +65,12 @@ static void render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 */
+
 RGB rgb;
+static bool isRGBon;
 
 void print_status_narrow(void) {
-    rgb = hsv_to_rgb(rgb_matrix_get_hsv();
+    rgb = hsv_to_rgb(rgb_matrix_get_hsv());
     led_t led_usb_state = host_keyboard_led_state();
     // oled_write_P(PSTR("\n\n"), false);
     // switch (get_highest_layer(layer_state)) {
@@ -96,20 +98,20 @@ void print_status_narrow(void) {
                 tap_code(KC_NUM);
             oled_write_ln_P(PSTR("Num"), false);
             if(isRGBon) {
-                RGB_MAGENTA(12, RGB_RED);
-                RGB_MAGENTA(16, RGB_RED);
-                RGB_MAGENTA(17, RGB_RED);
-                RGB_MAGENTA(22, RGB_RED);
-                RGB_MAGENTA(42, RGB_RED);
-                RGB_MAGENTA(43, RGB_RED);
-                RGB_MAGENTA(44, RGB_RED);
-                RGB_MAGENTA(45, RGB_RED);
-                RGB_MAGENTA(47, RGB_RED);
-                RGB_MAGENTA(50, RGB_RED);
-                RGB_MAGENTA(51, RGB_RED);
-                RGB_MAGENTA(52, RGB_RED);
-                RGB_MAGENTA(53, RGB_RED);
-                RGB_MAGENTA(54, RGB_RED);
+                rgb_matrix_set_color(12, RGB_RED);
+                rgb_matrix_set_color(16, RGB_RED);
+                rgb_matrix_set_color(17, RGB_RED);
+                rgb_matrix_set_color(22, RGB_RED);
+                rgb_matrix_set_color(42, RGB_RED);
+                rgb_matrix_set_color(43, RGB_RED);
+                rgb_matrix_set_color(44, RGB_RED);
+                rgb_matrix_set_color(45, RGB_RED);
+                rgb_matrix_set_color(47, RGB_RED);
+                rgb_matrix_set_color(50, RGB_RED);
+                rgb_matrix_set_color(51, RGB_RED);
+                rgb_matrix_set_color(52, RGB_RED);
+                rgb_matrix_set_color(53, RGB_RED);
+                rgb_matrix_set_color(54, RGB_RED);
             }
             break;
         case 2:
