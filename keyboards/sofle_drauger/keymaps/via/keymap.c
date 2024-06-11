@@ -122,7 +122,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static uint8_t lang;
 static uint8_t mod_state;
-static bool isRGBon;
 
 void switchLanguage(void) {
     clear_mods();
@@ -144,11 +143,11 @@ void printLanguage(bool print) {
         if(lang == 2) {
 		    oled_write_ln_P(PSTR("  Ru"), false);
             if(isRGBon)
-                rgb_matrix_set_color(57, RGB_PURPLE)
+                rgb_matrix_set_color(57, RGB_PURPLE);
         } else {
 		    oled_write_ln_P(PSTR("En"), false);
             if(isRGBon)
-                rgb_matrix_set_color(57, RGB_ORANGE)
+                rgb_matrix_set_color(57, RGB_ORANGE);
         }
     } else {
         oled_write_ln_P(PSTR(""), false);
@@ -414,25 +413,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         case KC_1:
         {
-            if(mod_state == (MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT)))
+            if(mod_state == (MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT))) {
 				if (record->event.pressed) {
 					lang = 1;
 					printLanguage(true);
 				} else {
                     printLanguage(false);
                 }
+			}
             return true;
         }
         
         case KC_2:
         {
-            if(mod_state == (MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT)))
+			if(mod_state == (MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT))) {
 				if (record->event.pressed) {
 					lang = 2;
 					printLanguage(true);
 				} else {
                     printLanguage(false);
                 }
+			}
             return true;
         }
         
@@ -441,7 +442,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
 				if(isRGBon) {
                     isRGBon = false;
-                    rgb = hsv_to_rgb(rgb_matrix_get_hsv();
+                    rgb = hsv_to_rgb(rgb_matrix_get_hsv());
                     rgb_matrix_sethsv_noeeprom(HSV_OFF);
                 } else {
                     isRGBon = true;
