@@ -66,97 +66,97 @@ static void render_logo(void) {
 }
 */
 
-static bool isRGBon;
+// static bool isRGBon;
 
-void print_status_narrow(void) {
-    RGB rgb = hsv_to_rgb(rgb_matrix_get_hsv());
-    led_t led_usb_state = host_keyboard_led_state();
-    // oled_write_P(PSTR("\n\n"), false);
-    // switch (get_highest_layer(layer_state)) {
-        // case 0:
-            // oled_write_ln_P(PSTR("Qwrt"), false);
-            // break;
-        // // case 1:
-            // // oled_write_ln_P(PSTR("Clmk"), false);
-            // // break;
-        // default:
-            // oled_write_P(PSTR("Mod\n"), false);
-            // break;
-    // }
-    // oled_write_P(PSTR("\n\n"), false);
-    oled_set_cursor(0, 1);
-    // oled_write_ln_P(PSTR("LAYER"), false);
-    switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_write_ln_P(PSTR(""), false);
-            if(isRGBon)
-                rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
-            break;
-        case 1:
-            if(!led_usb_state.num_lock)
-                tap_code(KC_NUM);
-            oled_write_ln_P(PSTR("Num"), false);
-            if(isRGBon) {
-                rgb_matrix_set_color(12, RGB_RED);
-                rgb_matrix_set_color(16, RGB_RED);
-                rgb_matrix_set_color(17, RGB_RED);
-                rgb_matrix_set_color(22, RGB_RED);
-                rgb_matrix_set_color(42, RGB_RED);
-                rgb_matrix_set_color(43, RGB_RED);
-                rgb_matrix_set_color(44, RGB_RED);
-                rgb_matrix_set_color(45, RGB_RED);
-                rgb_matrix_set_color(47, RGB_RED);
-                rgb_matrix_set_color(50, RGB_RED);
-                rgb_matrix_set_color(51, RGB_RED);
-                rgb_matrix_set_color(52, RGB_RED);
-                rgb_matrix_set_color(53, RGB_RED);
-                rgb_matrix_set_color(54, RGB_RED);
-            }
-            break;
-        case 2:
-            oled_write_ln_P(PSTR("Fn"), false);
-            if(isRGBon) {
-                rgb_matrix_set_color(12, RGB_CORAL);
-                rgb_matrix_set_color(16, RGB_CORAL);
-                rgb_matrix_set_color(17, RGB_CORAL);
-                rgb_matrix_set_color(22, RGB_CORAL);
-                rgb_matrix_set_color(42, RGB_CORAL);
-                rgb_matrix_set_color(46, RGB_CORAL);
-                rgb_matrix_set_color(47, RGB_CORAL);
-                rgb_matrix_set_color(52, RGB_CORAL);
-            }
-            break;
-        // case 3:
-            // oled_write_ln_P(PSTR("Adj"), false);
-            // break;
-        // default:
-            // oled_write_ln_P(PSTR("Undef\n"), false);
-    }
+// void print_status_narrow(void) {
+//     RGB rgb = hsv_to_rgb(rgb_matrix_get_hsv());
+//     led_t led_usb_state = host_keyboard_led_state();
+//     // oled_write_P(PSTR("\n\n"), false);
+//     // switch (get_highest_layer(layer_state)) {
+//         // case 0:
+//             // oled_write_ln_P(PSTR("Qwrt"), false);
+//             // break;
+//         // // case 1:
+//             // // oled_write_ln_P(PSTR("Clmk"), false);
+//             // // break;
+//         // default:
+//             // oled_write_P(PSTR("Mod\n"), false);
+//             // break;
+//     // }
+//     // oled_write_P(PSTR("\n\n"), false);
+//     oled_set_cursor(0, 1);
+//     // oled_write_ln_P(PSTR("LAYER"), false);
+//     switch (get_highest_layer(layer_state)) {
+//         case 0:
+//             oled_write_ln_P(PSTR(""), false);
+//             if(isRGBon)
+//                 rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+//             break;
+//         case 1:
+//             if(!led_usb_state.num_lock)
+//                 tap_code(KC_NUM);
+//             oled_write_ln_P(PSTR("Num"), false);
+//             if(isRGBon) {
+//                 rgb_matrix_set_color(12, RGB_RED);
+//                 rgb_matrix_set_color(16, RGB_RED);
+//                 rgb_matrix_set_color(17, RGB_RED);
+//                 rgb_matrix_set_color(22, RGB_RED);
+//                 rgb_matrix_set_color(42, RGB_RED);
+//                 rgb_matrix_set_color(43, RGB_RED);
+//                 rgb_matrix_set_color(44, RGB_RED);
+//                 rgb_matrix_set_color(45, RGB_RED);
+//                 rgb_matrix_set_color(47, RGB_RED);
+//                 rgb_matrix_set_color(50, RGB_RED);
+//                 rgb_matrix_set_color(51, RGB_RED);
+//                 rgb_matrix_set_color(52, RGB_RED);
+//                 rgb_matrix_set_color(53, RGB_RED);
+//                 rgb_matrix_set_color(54, RGB_RED);
+//             }
+//             break;
+//         case 2:
+//             oled_write_ln_P(PSTR("Fn"), false);
+//             if(isRGBon) {
+//                 rgb_matrix_set_color(12, RGB_CORAL);
+//                 rgb_matrix_set_color(16, RGB_CORAL);
+//                 rgb_matrix_set_color(17, RGB_CORAL);
+//                 rgb_matrix_set_color(22, RGB_CORAL);
+//                 rgb_matrix_set_color(42, RGB_CORAL);
+//                 rgb_matrix_set_color(46, RGB_CORAL);
+//                 rgb_matrix_set_color(47, RGB_CORAL);
+//                 rgb_matrix_set_color(52, RGB_CORAL);
+//             }
+//             break;
+//         // case 3:
+//             // oled_write_ln_P(PSTR("Adj"), false);
+//             // break;
+//         // default:
+//             // oled_write_ln_P(PSTR("Undef\n"), false);
+//     }
 
-    // oled_write_P(PSTR("\n\n"), false);
-    oled_set_cursor(0, 3);
-    // oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
-    if(led_usb_state.caps_lock) {
-        oled_write_ln_P(PSTR("Caps"), false);
-            if(isRGBon)
-                rgb_matrix_set_color(8, RGB_RED);
-        } else {
-            oled_write_ln_P(PSTR(""), false);
-            if(isRGBon)
-                rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
-        }
-}
+//     // oled_write_P(PSTR("\n\n"), false);
+//     oled_set_cursor(0, 3);
+//     // oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+//     if(led_usb_state.caps_lock) {
+//         oled_write_ln_P(PSTR("Caps"), false);
+//             if(isRGBon)
+//                 rgb_matrix_set_color(8, RGB_RED);
+//         } else {
+//             oled_write_ln_P(PSTR(""), false);
+//             if(isRGBon)
+//                 rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
+//         }
+// }
 
 bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
     }
-    if (is_keyboard_master()) {
-        print_status_narrow();
-    } else {
-        // render_logo();
-        // print_status_narrow2();
-    }
+    // if (is_keyboard_master()) {
+    //     print_status_narrow();
+    // } else {
+    //     // render_logo();
+    //     // print_status_narrow2();
+    // }
     return true;
 }
 
