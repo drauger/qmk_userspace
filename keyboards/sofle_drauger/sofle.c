@@ -66,11 +66,10 @@ static void render_logo(void) {
 }
 */
 
-RGB rgb;
 static bool isRGBon;
 
 void print_status_narrow(void) {
-    rgb = hsv_to_rgb(rgb_matrix_get_hsv());
+    RGB rgb = hsv_to_rgb(rgb_matrix_get_hsv());
     led_t led_usb_state = host_keyboard_led_state();
     // oled_write_P(PSTR("\n\n"), false);
     // switch (get_highest_layer(layer_state)) {
