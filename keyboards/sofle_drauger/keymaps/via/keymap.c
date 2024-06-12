@@ -196,10 +196,7 @@ void print_status_narrow(void) {
         // default:
             // oled_write_ln_P(PSTR("Undef\n"), false);
     }
-
-    // oled_write_P(PSTR("\n\n"), false);
     oled_set_cursor(0, 3);
-    // oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
     if(led_usb_state.caps_lock) {
         oled_write_ln_P(PSTR("Caps"), false);
     } else {
@@ -539,16 +536,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
 				if(isRGBon) {
                     isRGBon = false;
-                    rgb = hsv_to_rgb(rgb_matrix_get_hsv());
-                    rgb_matrix_sethsv_noeeprom(HSV_OFF);
+                    // rgb = hsv_to_rgb(rgb_matrix_get_hsv());
+                    // rgb_matrix_sethsv_noeeprom(HSV_OFF);
                 } else {
                     isRGBon = true;
-                    rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+                    // rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
                 }
 			} else {
                  
             }
-            return false;
+            return true;//false;
         }
     }
     return true;
