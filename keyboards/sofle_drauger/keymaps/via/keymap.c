@@ -125,35 +125,16 @@ static uint8_t mod_state;
 static RGB rgb;
 static bool isRGBon;
 
-void print_status_narrow(void) {
+void rgb_matrix_indicators_user(void) {
     rgb = hsv_to_rgb(rgb_matrix_get_hsv());
     led_t led_usb_state = host_keyboard_led_state();
-    // oled_write_P(PSTR("\n\n"), false);
-    // switch (get_highest_layer(layer_state)) {
-        // case 0:
-            // oled_write_ln_P(PSTR("Qwrt"), false);
-            // break;
-        // // case 1:
-            // // oled_write_ln_P(PSTR("Clmk"), false);
-            // // break;
-        // default:
-            // oled_write_P(PSTR("Mod\n"), false);
-            // break;
-    // }
-    // oled_write_P(PSTR("\n\n"), false);
-    oled_set_cursor(0, 1);
-    // oled_write_ln_P(PSTR("LAYER"), false);
+
+    if(isRGBon) {
     switch (get_highest_layer(layer_state)) {
         case 0:
-            oled_write_ln_P(PSTR(""), false);
-            if(isRGBon)
-                rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+            rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
             break;
         case 1:
-            if(!led_usb_state.num_lock)
-                tap_code(KC_NUM);
-            oled_write_ln_P(PSTR("Num"), false);
-            if(isRGBon) {
                 rgb_matrix_set_color(12, RGB_RED);
                 rgb_matrix_set_color(16, RGB_RED);
                 rgb_matrix_set_color(17, RGB_RED);
@@ -168,11 +149,8 @@ void print_status_narrow(void) {
                 rgb_matrix_set_color(52, RGB_RED);
                 rgb_matrix_set_color(53, RGB_RED);
                 rgb_matrix_set_color(54, RGB_RED);
-            }
             break;
         case 2:
-            oled_write_ln_P(PSTR("Fn"), false);
-            if(isRGBon) {
                 rgb_matrix_set_color(12, RGB_CORAL);
                 rgb_matrix_set_color(16, RGB_CORAL);
                 rgb_matrix_set_color(17, RGB_CORAL);
@@ -181,7 +159,36 @@ void print_status_narrow(void) {
                 rgb_matrix_set_color(46, RGB_CORAL);
                 rgb_matrix_set_color(47, RGB_CORAL);
                 rgb_matrix_set_color(52, RGB_CORAL);
-            }
+            break;
+        // case 3:
+            // oled_write_ln_P(PSTR("Adj"), false);
+            // break;
+        // default:
+            // oled_write_ln_P(PSTR("Undef\n"), false);
+    }
+    if(led_usb_state.caps_lock) {
+        rgb_matrix_set_color(8, RGB_RED);
+    } else {
+        rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
+    }
+    }
+}
+
+void print_status_narrow(void) {
+    led_t led_usb_state = host_keyboard_led_state();
+    
+    oled_set_cursor(0, 1);
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_ln_P(PSTR(""), false);
+            break;
+        case 1:
+            if(!led_usb_state.num_lock)
+                tap_code(KC_NUM);
+            oled_write_ln_P(PSTR("Num"), false);
+            break;
+        case 2:
+            oled_write_ln_P(PSTR("Fn"), false);
             break;
         // case 3:
             // oled_write_ln_P(PSTR("Adj"), false);
@@ -195,13 +202,9 @@ void print_status_narrow(void) {
     // oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
     if(led_usb_state.caps_lock) {
         oled_write_ln_P(PSTR("Caps"), false);
-            if(isRGBon)
-                rgb_matrix_set_color(8, RGB_RED);
-        } else {
-            oled_write_ln_P(PSTR(""), false);
-            if(isRGBon)
-                rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
-        }
+    } else {
+        oled_write_ln_P(PSTR(""), false);
+    }
 }
 
 void switchLanguage(void) {
@@ -237,11 +240,11 @@ void printLanguage(bool print) {
         if(lang == 2) {
 		    oled_write_ln_P(PSTR("  Ru"), false);
             if(isRGBon)
-                rgb_matrix_set_color(57, RGB_PURPLE);
+                rgb_matrix_set_color(27, RGB_PURPLE);
         } else {
 		    oled_write_ln_P(PSTR("En"), false);
             if(isRGBon)
-                rgb_matrix_set_color(57, RGB_ORANGE);
+                rgb_matrix_set_color(27, RGB_ORANGE);
         }
     } else {
         oled_write_ln_P(PSTR(""), false);
