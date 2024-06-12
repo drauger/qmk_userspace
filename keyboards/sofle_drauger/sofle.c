@@ -49,7 +49,7 @@ const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {1, 0};
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-    oled_set_brightness(32);
+    //oled_set_brightness(32);
 	// if (is_keyboard_master()) {
         return OLED_ROTATION_270;
     // }
@@ -162,6 +162,16 @@ bool oled_task_kb(void) {
 
 #endif
 
+#ifdef RGB_MATRIX_ENABLE
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+    return true;
+}
+#endif
+
+/*
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
@@ -183,3 +193,4 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     return true;
 }
 #endif
+*/
