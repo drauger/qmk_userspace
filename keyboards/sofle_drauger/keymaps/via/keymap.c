@@ -125,7 +125,7 @@ static uint8_t mod_state;
 static RGB rgb;
 static bool isRGBon;
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     rgb = hsv_to_rgb(rgb_matrix_get_hsv());
     led_t led_usb_state = host_keyboard_led_state();
 
@@ -172,6 +172,7 @@ void rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
     }
     }
+    return true;
 }
 
 void print_status_narrow(void) {
@@ -219,9 +220,6 @@ void switchLanguage(void) {
 }
 
 bool oled_task_user(void) {
-    if (!oled_task_user()) {
-        return false;
-    }
     if (is_keyboard_master()) {
         print_status_narrow();
     // } else {
