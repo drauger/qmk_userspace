@@ -251,6 +251,7 @@ void keyboard_post_init_user(void) {
     switchLanguage();
 	// if (is_keyboard_master())
 	// 	printLanguage();
+    rgb_matrix_disable();
     rgb_matrix_enable_noeeprom();
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
 }
@@ -534,16 +535,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
 				if(isRGBon) {
                     isRGBon = false;
-                    // rgb = hsv_to_rgb(rgb_matrix_get_hsv());
+                    rgb = hsv_to_rgb(rgb_matrix_get_hsv());
                     // rgb_matrix_sethsv_noeeprom(HSV_OFF);
                 } else {
                     isRGBon = true;
-                    // rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+                    rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
                 }
 			} else {
                  
             }
-            return true;//false;
+            //return true;
+            return false;
         }
     }
     return true;
