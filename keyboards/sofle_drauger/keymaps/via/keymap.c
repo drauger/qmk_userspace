@@ -172,7 +172,7 @@ bool rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
     }
     }
-    return true;
+    return false;
 }
 
 void print_status_narrow(void) {
