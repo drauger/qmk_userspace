@@ -171,6 +171,11 @@ bool rgb_matrix_indicators_user(void) {
     } else {
         rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
     }
+    if(lang == 2) {
+		rgb_matrix_set_color(27, RGB_PURPLE);
+    } else {
+        rgb_matrix_set_color(27, RGB_ORANGE);
+    }
     }
     return false;
 }
