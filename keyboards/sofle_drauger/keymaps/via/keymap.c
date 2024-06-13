@@ -144,26 +144,26 @@ bool rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(16, RGB_RED);
                 rgb_matrix_set_color(17, RGB_RED);
                 rgb_matrix_set_color(22, RGB_RED);
+                rgb_matrix_set_color(41, RGB_RED);
                 rgb_matrix_set_color(42, RGB_RED);
                 rgb_matrix_set_color(43, RGB_RED);
                 rgb_matrix_set_color(44, RGB_RED);
                 rgb_matrix_set_color(45, RGB_RED);
-                rgb_matrix_set_color(47, RGB_RED);
+                rgb_matrix_set_color(46, RGB_RED);
                 rgb_matrix_set_color(50, RGB_RED);
                 rgb_matrix_set_color(51, RGB_RED);
                 rgb_matrix_set_color(52, RGB_RED);
                 rgb_matrix_set_color(53, RGB_RED);
-                rgb_matrix_set_color(54, RGB_RED);
             break;
         case 2:
                 rgb_matrix_set_color(12, RGB_CORAL);
                 rgb_matrix_set_color(16, RGB_CORAL);
                 rgb_matrix_set_color(17, RGB_CORAL);
                 rgb_matrix_set_color(22, RGB_CORAL);
-                rgb_matrix_set_color(42, RGB_CORAL);
+                rgb_matrix_set_color(41, RGB_CORAL);
+                rgb_matrix_set_color(45, RGB_CORAL);
                 rgb_matrix_set_color(46, RGB_CORAL);
-                rgb_matrix_set_color(47, RGB_CORAL);
-                rgb_matrix_set_color(52, RGB_CORAL);
+                rgb_matrix_set_color(51, RGB_CORAL);
             break;
         // case 3:
             // oled_write_ln_P(PSTR("Adj"), false);
