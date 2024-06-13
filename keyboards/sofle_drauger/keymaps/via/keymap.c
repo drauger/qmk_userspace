@@ -254,6 +254,7 @@ void keyboard_post_init_user(void) {
     rgb_matrix_disable();
     rgb_matrix_enable_noeeprom();
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+	rgb_matrix_sethsv_noeeprom(HSV_OFF);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -580,7 +581,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				if(isRGBon) {
                     isRGBon = false;
                     rgb = hsv_to_rgb(rgb_matrix_get_hsv());
-                    // rgb_matrix_sethsv_noeeprom(HSV_OFF);
+                    rgb_matrix_sethsv_noeeprom(HSV_OFF);
                 } else {
                     isRGBon = true;
                     rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
