@@ -534,44 +534,52 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         case KC_WH_D:
 		{
-			if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                if (record->event.pressed) {
 					register_code(KC_WH_R);
-				    return false;
-				}
+				} else {
+                    unregister_code(KC_WH_R);
+                }
+				return false;
 			}
 			return true;
         }
         
         case KC_WH_U:
 		{
-			if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                if (record->event.pressed) {
 					register_code(KC_WH_L);
-				    return false;
-				}
+				} else {
+                    unregister_code(KC_WH_L);
+                }
+				return false;
 			}
 			return true;
         }
         
         case KC_MS_D:
 		{
-			if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                if (record->event.pressed) {
 					register_code(KC_MS_R);
-				    return false;
-				}
+				} else {
+                    unregister_code(KC_MS_R);
+                }
+				return false;
 			}
 			return true;
         }
         
         case KC_MS_U:
 		{
-			if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                if (record->event.pressed) {
 					register_code(KC_MS_L);
-				    return false;
-				}
+				} else {
+                    unregister_code(KC_MS_L);
+                }
+				return false;
 			}
 			return true;
         }
