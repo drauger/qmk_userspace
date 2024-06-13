@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_GRV,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                      KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_MINS,
    KC_TAB,  KC_INS, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U,                    KC_PGUP, KC_HOME,   KC_UP,  KC_END,  KC_F11, KC_RBRC,
   KC_LGUI, KC_PSCR, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,                    KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT,  KC_F12, KC_RGUI,
-  KC_LSFT, KC_PAUS, KC_WH_L, KC_BTN3, KC_WH_R,  KC_APP, KC_MUTE,  S(KC_A),  KC_APP, KC_BTN2, KC_BTN3, KC_BTN1, KC_BSLS, KC_RSFT,
+  KC_LSFT, KC_PAUS, KC_WH_L, KC_BTN3, KC_WH_R, RGB_TOG, KC_MUTE,  S(KC_A),  KC_APP, KC_BTN2, KC_BTN3, KC_BTN1, KC_BSLS, KC_RSFT,
                     KC_TRNS, KC_TRNS,   TG(1), KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,   TG(1), KC_TRNS, KC_TRNS
 ),
 /* ADJUST
@@ -528,6 +528,50 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
 			}
             return true;
+        }
+        
+        case KC_WH_D:
+		{
+			if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+					tap_code(KC_WH_R);
+				    return false;
+				}
+			}
+			return true;
+        }
+        
+        case KC_WH_U:
+		{
+			if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+					tap_code(KC_WH_L);
+				    return false;
+				}
+			}
+			return true;
+        }
+        
+        case KC_MS_D:
+		{
+			if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+					tap_code(KC_MS_R);
+				    return false;
+				}
+			}
+			return true;
+        }
+        
+        case KC_MS_U:
+		{
+			if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+					tap_code(KC_MS_L);
+				    return false;
+				}
+			}
+			return true;
         }
         
         case RGB_TOG:
