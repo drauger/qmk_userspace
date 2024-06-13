@@ -129,6 +129,10 @@ bool rgb_matrix_indicators_user(void) {
     rgb = hsv_to_rgb(rgb_matrix_get_hsv());
     led_t led_usb_state = host_keyboard_led_state();
 
+    if(isRGBon) {
+        rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+    }
+
     if(isRGBindicatorsOn) {
     switch (get_highest_layer(layer_state)) {
         case 0:
