@@ -123,13 +123,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 static uint8_t lang;
 static uint8_t mod_state;
 static RGB rgb;
-static bool isRGBon;
+static bool isRGBon = false, isRGBindicatorsOn = true;
 
 bool rgb_matrix_indicators_user(void) {
     rgb = hsv_to_rgb(rgb_matrix_get_hsv());
     led_t led_usb_state = host_keyboard_led_state();
 
-    if(isRGBon) {
+    if(isRGBindicatorsOn) {
     switch (get_highest_layer(layer_state)) {
         case 0:
             rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
@@ -239,12 +239,8 @@ void printLanguage(bool print) {
     if(print) {
         if(lang == 2) {
 		    oled_write_ln_P(PSTR("  Ru"), false);
-            if(isRGBon)
-                rgb_matrix_set_color(27, RGB_PURPLE);
         } else {
 		    oled_write_ln_P(PSTR("En"), false);
-            if(isRGBon)
-                rgb_matrix_set_color(27, RGB_ORANGE);
         }
     } else {
         oled_write_ln_P(PSTR(""), false);
@@ -540,7 +536,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		{
 			if (record->event.pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-					tap_code(KC_WH_R);
+					register_code(KC_WH_R);
 				    return false;
 				}
 			}
@@ -551,7 +547,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		{
 			if (record->event.pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-					tap_code(KC_WH_L);
+					register_code(KC_WH_L);
 				    return false;
 				}
 			}
@@ -562,7 +558,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		{
 			if (record->event.pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-					tap_code(KC_MS_R);
+					register_code(KC_MS_R);
 				    return false;
 				}
 			}
@@ -573,7 +569,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		{
 			if (record->event.pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-					tap_code(KC_MS_L);
+					register_code(KC_MS_L);
 				    return false;
 				}
 			}
@@ -583,13 +579,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RGB_TOG:
         {
             if (record->event.pressed) {
-				if(isRGBon) {
-                    isRGBon = false;
-                    rgb = hsv_to_rgb(rgb_matrix_get_hsv());
-                    rgb_matrix_sethsv_noeeprom(HSV_OFF);
+                if (mod_state & MOD_MASK_SHIFT) {
+                    if(isRGBindicatorsOn) {
+                        isRGBindicatorsOn = false;
+                    } else {
+                        isRGBindicatorsOn = true;
+                    }
                 } else {
-                    isRGBon = true;
-                    rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+				    if(isRGBon) {
+                        isRGBon = false;
+                        rgb = hsv_to_rgb(rgb_matrix_get_hsv());
+                        rgb_matrix_sethsv_noeeprom(HSV_OFF);
+                    } else {
+                        isRGBon = true;
+                        // rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+                    }
                 }
 			} else {
                  
