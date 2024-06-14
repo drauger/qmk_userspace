@@ -128,9 +128,9 @@ static bool isRGBon = false, isRGBindicatorsOn = true;
 bool rgb_matrix_indicators_user(void) {
     led_t led_usb_state = host_keyboard_led_state();
 
-    if(isRGBon) {
-        rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
-    }
+    // if(isRGBon) {
+    //     rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+    // }
 
     rgb = hsv_to_rgb(rgb_matrix_get_hsv());
 
@@ -178,10 +178,10 @@ bool rgb_matrix_indicators_user(void) {
     }
     if(lang == 2) {
 		rgb_matrix_set_color(27, RGB_PURPLE);
-		rgb_matrix_set_color(56, RGB_PURPLE);
+		// rgb_matrix_set_color(56, RGB_PURPLE);
     } else {
         rgb_matrix_set_color(27, RGB_ORANGE);
-        rgb_matrix_set_color(56, RGB_ORANGE);
+        // rgb_matrix_set_color(56, RGB_ORANGE);
     }
     }
     return false;
