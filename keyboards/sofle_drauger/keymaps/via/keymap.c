@@ -128,9 +128,9 @@ static bool isRGBon = false, isRGBindicatorsOn = true;
 bool rgb_matrix_indicators_user(void) {
     led_t led_usb_state = host_keyboard_led_state();
 
-    // if(isRGBon) {
-    //     rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
-    // }
+    if(isRGBon) {
+        rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+    }
 
     rgb = hsv_to_rgb(rgb_matrix_get_hsv());
 
@@ -590,7 +590,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
 			return true;
         }
-        
+        /*
         case RGB_TOG:
         {
             if (record->event.pressed) {
@@ -607,7 +607,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         rgb_matrix_sethsv_noeeprom(HSV_OFF);
                     } else {
                         isRGBon = true;
-                        // rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+                        rgb_matrix_set_color_all(100, 100, 100);
                     }
                 }
 			} else {
@@ -615,7 +615,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             //return true;
             return false;
-        }
+        }*/
     }
     return true;
 };
