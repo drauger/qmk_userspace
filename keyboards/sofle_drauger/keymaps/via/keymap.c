@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 static uint8_t lang;
 static uint8_t mod_state;
 static RGB rgb;
-static bool isRGBon = false, isRGBindicatorsOn = true;
+static bool isRGBon = true, isRGBindicatorsOn = true;
 
 bool rgb_matrix_indicators_user(void) {
     led_t led_usb_state = host_keyboard_led_state();
@@ -262,7 +262,8 @@ void keyboard_post_init_user(void) {
     rgb_matrix_disable();
     rgb_matrix_enable_noeeprom();
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-	rgb_matrix_sethsv_noeeprom(HSV_OFF);
+	// rgb_matrix_sethsv_noeeprom(HSV_OFF);
+	rgb_matrix_set_color_all(100, 100, 100);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
