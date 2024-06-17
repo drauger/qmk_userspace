@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 static uint8_t lang;
 static uint8_t mod_state;
 static RGB rgb;
-static bool isRGBon = true, isRGBindicatorsOn = true;
+static bool isRGBon = false, isRGBindicatorsOn = true;
 
 bool rgb_matrix_indicators_user(void) {
     led_t led_usb_state = host_keyboard_led_state();
@@ -543,12 +543,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_WH_D:
 		{
             if (mod_state & MOD_MASK_SHIFT) {
+                clear_mods();
                 if (record->event.pressed) {
 					register_code(KC_WH_R);
 				} else {
                     unregister_code(KC_WH_R);
                 }
-				return false;
+				set_mods(mod_state);
+                return false;
 			}
 			return true;
         }
@@ -556,12 +558,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_WH_U:
 		{
             if (mod_state & MOD_MASK_SHIFT) {
+                clear_mods();
                 if (record->event.pressed) {
 					register_code(KC_WH_L);
 				} else {
                     unregister_code(KC_WH_L);
                 }
-				return false;
+				set_mods(mod_state);
+                return false;
 			}
 			return true;
         }
@@ -569,12 +573,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_MS_D:
 		{
             if (mod_state & MOD_MASK_SHIFT) {
+                clear_mods();
                 if (record->event.pressed) {
 					register_code(KC_MS_R);
 				} else {
                     unregister_code(KC_MS_R);
                 }
-				return false;
+				set_mods(mod_state);
+                return false;
 			}
 			return true;
         }
@@ -582,16 +588,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_MS_U:
 		{
             if (mod_state & MOD_MASK_SHIFT) {
+                clear_mods();
                 if (record->event.pressed) {
 					register_code(KC_MS_L);
 				} else {
                     unregister_code(KC_MS_L);
                 }
-				return false;
+				set_mods(mod_state);
+                return false;
 			}
 			return true;
         }
-        /*
+        
         case RGB_TOG:
         {
             if (record->event.pressed) {
@@ -616,7 +624,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             //return true;
             return false;
-        }*/
+        }
     }
     return true;
 };
