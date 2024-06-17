@@ -227,7 +227,7 @@ void switchLanguage(void) {
     clear_mods();
 	register_code(KC_LSFT);
 	register_code(KC_LALT);
-    if(lang == 2) {
+    if(lang) {
 		tap_code(KC_2);
     } else {
 		tap_code(KC_1);
@@ -364,7 +364,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_COLN:
 		{
 			if (record->event.pressed) {
-                if(lang == 2) {
+                if(lang) {
 					if (mod_state & MOD_MASK_SHIFT) {//MOD_MASK_CTRL) {
 						// set_mods(MOD_MASK_SHIFT);
 						tap_code(KC_6);
@@ -404,17 +404,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         case KC_DLR:
 		{
-			uint8_t l;
+			bool l;
 			if (record->event.pressed) {
 				l = lang;
-                if(l == 2) {
-                    lang = 1;
+                if(l) {
+                    lang = false;
                     switchLanguage();
                 }
                 set_mods(MOD_MASK_SHIFT);
 				tap_code(KC_4);
-                if(l == 2) {
-                    lang = 2;
+                if(l) {
+                    lang = true;
                     switchLanguage();
                 }
 				set_mods(mod_state);
@@ -425,17 +425,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         case KC_AMPR:
 		{
-			uint8_t l;
+			bool l;
 			if (record->event.pressed) {
 				l = lang;
-                if(l == 2) {
-                    lang = 1;
+                if(l) {
+                    lang = false;
                     switchLanguage();
                 }
                 set_mods(MOD_MASK_SHIFT);
 				tap_code(KC_7);
-                if(l == 2) {
-                    lang = 2;
+                if(l) {
+                    lang = true;
                     switchLanguage();
                 }
 				set_mods(mod_state);
@@ -446,10 +446,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         case KC_DQT:
 		{
-			uint8_t l;
+			bool l;
 			if (record->event.pressed) {
 				l = lang;
-                if(l == 2) {
+                if(l) {
                     // lang = 1;
                     // switchLanguage();
                 // }
@@ -472,11 +472,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 
         case KC_GT:
 		{
-			uint8_t l;
+			bool l;
 			if (record->event.pressed) {
 				l = lang;
-                if(l == 2) {
-                    lang = 1;
+                if(l) {
+                    lang = false;
                     switchLanguage();
                 }
                 if (mod_state & MOD_MASK_SHIFT) {//MOD_MASK_CTRL) {
@@ -486,8 +486,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 					set_mods(MOD_MASK_SHIFT);
 					tap_code(KC_DOT);
 				}
-                if(l == 2) {
-                    lang = 2;
+                if(l) {
+                    lang = true;
                     switchLanguage();
                 }
 				set_mods(mod_state);
