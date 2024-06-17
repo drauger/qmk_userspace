@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_ESC, KC_1,  KC_2,    KC_3,  KC_4,  KC_5,                    KC_6,  KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
    KC_TAB, KC_Q,  KC_W,    KC_E,  KC_R,  KC_T,                    KC_Y,  KC_U,    KC_I,    KC_O,    KC_P, KC_LBRC,
   KC_LGUI, KC_A,  KC_S,    KC_D,  KC_F,  KC_G,                    KC_H,  KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
-  KC_LSFT, KC_Z,  KC_X,    KC_C,  KC_V,  KC_B, KC_LNG1, KC_LNG2,  KC_N,  KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
+  KC_LSFT, KC_Z,  KC_X,    KC_C,  KC_V,  KC_B, KC_LNG1, KC_LNG1,  KC_N,  KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
                KC_LCTL, KC_LALT, MO(1), MO(2),  KC_SPC,  KC_ENT, MO(2), MO(1), KC_RALT, KC_RCTL
 ),
 /*
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 };
 
-static uint8_t lang;
+static bool lang;
 static uint8_t mod_state;
 static RGB rgb;
 static bool isRGBon = false, isRGBindicatorsOn = true;
@@ -176,7 +176,7 @@ bool rgb_matrix_indicators_user(void) {
     } else {
         rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
     }
-    if(lang == 2) {
+    if(lang) {
 		rgb_matrix_set_color(27, RGB_PURPLE);
 		// rgb_matrix_set_color(56, RGB_PURPLE);
     } else {
@@ -215,6 +215,12 @@ void print_status_narrow(void) {
     } else {
         oled_write_ln_P(PSTR(""), false);
     }
+    oled_set_cursor(0, 13);
+    if(lang) {
+		    oled_write_ln_P(PSTR("  Ru"), false);
+    } else {
+		    oled_write_ln_P(PSTR("En"), false);
+    }
 }
 
 void switchLanguage(void) {
@@ -241,18 +247,18 @@ bool oled_task_user(void) {
     return true;
 }
 
-void printLanguage(bool print) {
-    oled_set_cursor(0, 13);
-    if(print) {
-        if(lang == 2) {
-		    oled_write_ln_P(PSTR("  Ru"), false);
-        } else {
-		    oled_write_ln_P(PSTR("En"), false);
-        }
-    } else {
-        oled_write_ln_P(PSTR(""), false);
-    }
-}
+// void printLanguage(bool print) {
+//     oled_set_cursor(0, 13);
+//     if(print) {
+//         if(lang) {
+// 		    oled_write_ln_P(PSTR("  Ru"), false);
+//         } else {
+// 		    oled_write_ln_P(PSTR("En"), false);
+//         }
+//     } else {
+//         oled_write_ln_P(PSTR(""), false);
+//     }
+// }
 
 void keyboard_post_init_user(void) {
     lang = 1;
@@ -493,35 +499,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_LNG1:
         {
             if (record->event.pressed) {
-				lang = 1;
+				lang = !lang;
                 switchLanguage();
-                printLanguage(true);
+                // printLanguage(true);
             } else {
-                printLanguage(false);
+                // printLanguage(false);
             }
             return false;
         }
         
-        case KC_LNG2:
-        {
-            if (record->event.pressed) {
-				lang = 2;
-                switchLanguage();
-                printLanguage(true);
-            } else {
-                printLanguage(false);
-            }
-            return false;
-        }
+    //     case KC_LNG2:
+    //     {
+    //         if (record->event.pressed) {
+				// lang = !lang;
+    //             switchLanguage();
+    //             // printLanguage(true);
+    //         } else {
+    //             // printLanguage(false);
+    //         }
+    //         return false;
+    //     }
         
         case KC_1:
         {
             if(mod_state == (MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT))) {
 				if (record->event.pressed) {
-					lang = 1;
-					printLanguage(true);
+					lang = false;
+					// printLanguage(true);
 				} else {
-                    printLanguage(false);
+					// printLanguage(false);
                 }
 			}
             return true;
@@ -531,10 +537,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         {
 			if(mod_state == (MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT))) {
 				if (record->event.pressed) {
-					lang = 2;
-					printLanguage(true);
+					lang = true;
+					// printLanguage(true);
 				} else {
-                    printLanguage(false);
+                    // printLanguage(false);
                 }
 			}
             return true;
