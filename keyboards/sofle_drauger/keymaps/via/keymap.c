@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 };
 
-#define colorFn        RGB_TURQUOISE
+#define colorFn        RGB_GREEN
 #define colorNum       RGB_RED
 #define colorCaps      RGB_RED
 #define colorEn        RGB_ORANGE
@@ -286,7 +286,7 @@ bool oled_task_user(void) {
 // }
 
 void keyboard_post_init_user(void) {
-    lang = 1;
+    lang = false;
     switchLanguage();
 	// if (is_keyboard_master())
 	// 	printLanguage();
