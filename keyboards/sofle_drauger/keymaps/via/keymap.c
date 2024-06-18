@@ -120,6 +120,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 };
 
+#define colorFn        RGB_CORAL
+#define colorNum       RGB_RED
+#define colorCaps      RGB_RED
+#define colorEn        RGB_ORANGE
+#define colorRu        RGB_PURPLE
+
 static bool lang;
 static uint8_t mod_state;
 static RGB rgb, rgbLast;
