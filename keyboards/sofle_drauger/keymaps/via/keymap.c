@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static bool lang;
 static uint8_t mod_state;
-static RGB rgb;
+static RGB rgb, rgbLast;
 static bool isRGBon = false, isRGBindicatorsOn = true;
 
 bool rgb_matrix_indicators_user(void) {
@@ -130,12 +130,12 @@ bool rgb_matrix_indicators_user(void) {
     RGB rgbCurrent;
     
     if(isRGBon) {
-        rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+        // rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
         rgbCurrent.r = rgb.r;
         rgbCurrent.g = rgb.g;
         rgbCurrent.b = rgb.b;
     } else {
-        rgb_matrix_sethsv_noeeprom(HSV_OFF);
+        // rgb_matrix_sethsv_noeeprom(HSV_OFF);
         rgbCurrent.r = 0;
         rgbCurrent.g = 0;
         rgbCurrent.b = 0;
@@ -144,7 +144,12 @@ bool rgb_matrix_indicators_user(void) {
     if(isRGBindicatorsOn) {
     switch (get_highest_layer(layer_state)) {
         case 0:
-            rgb_matrix_set_color_all(rgbCurrent.r, rgbCurrent.g, rgbCurrent.b);
+            if (rgbCurrent.r != rgbLast.r || rgbCurrent.g != rgbLast.g || rgbCurrent.b != rgbLast.b) {
+                rgb_matrix_set_color_all(rgbCurrent.r, rgbCurrent.g, rgbCurrent.b);
+                rgbLast.r = rgbCurrent.r;
+                rgbLast.g = rgbCurrent.g;
+                rgbLast.b = rgbCurrent.b;
+            }
             break;
         case 1:
                 rgb_matrix_set_color(12, RGB_RED);
@@ -190,6 +195,13 @@ bool rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(27, RGB_ORANGE);
         // rgb_matrix_set_color(56, RGB_ORANGE);
     }
+    } else {
+        if (rgbCurrent.r != rgbLast.r || rgbCurrent.g != rgbLast.g || rgbCurrent.b != rgbLast.b) {
+            rgb_matrix_set_color_all(rgbCurrent.r, rgbCurrent.g, rgbCurrent.b);
+            rgbLast.r = rgbCurrent.r;
+            rgbLast.g = rgbCurrent.g;
+            rgbLast.b = rgbCurrent.b;
+        }
     }
     return false;
 }
