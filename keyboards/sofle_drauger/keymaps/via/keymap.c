@@ -127,15 +127,19 @@ static bool isRGBon = false, isRGBindicatorsOn = true;
 
 bool rgb_matrix_indicators_user(void) {
     led_t led_usb_state = host_keyboard_led_state();
-
+    RGB rgbCurrent;
+    
     if(isRGBon) {
         rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
-        // rgb = hsv_to_rgb(rgb_matrix_get_hsv());
+        rgbCurrent.r = rgb.r;
+        rgbCurrent.g = rgb.g;
+        rgbCurrent.b = rgb.b;
     } else {
         rgb_matrix_sethsv_noeeprom(HSV_OFF);
+        rgbCurrent.r = 0;
+        rgbCurrent.g = 0;
+        rgbCurrent.b = 0;
     }
-
-    RGB rgbCurrent = hsv_to_rgb(rgb_matrix_get_hsv());
 
     if(isRGBindicatorsOn) {
     switch (get_highest_layer(layer_state)) {
@@ -621,7 +625,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
 				    if(isRGBon) {
                         isRGBon = false;
-                        // rgb = hsv_to_rgb(rgb_matrix_get_hsv());
+                        rgb = hsv_to_rgb(rgb_matrix_get_hsv());
                         // rgb_matrix_sethsv_noeeprom(HSV_OFF);
                     } else {
                         isRGBon = true;
