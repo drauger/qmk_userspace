@@ -130,14 +130,17 @@ bool rgb_matrix_indicators_user(void) {
 
     if(isRGBon) {
         rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+        // rgb = hsv_to_rgb(rgb_matrix_get_hsv());
+    } else {
+        rgb_matrix_sethsv_noeeprom(HSV_OFF);
     }
 
-    rgb = hsv_to_rgb(rgb_matrix_get_hsv());
+    RGB rgbCurrent = hsv_to_rgb(rgb_matrix_get_hsv());
 
     if(isRGBindicatorsOn) {
     switch (get_highest_layer(layer_state)) {
         case 0:
-            rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+            rgb_matrix_set_color_all(rgbCurrent.r, rgbCurrent.g, rgbCurrent.b);
             break;
         case 1:
                 rgb_matrix_set_color(12, RGB_RED);
@@ -174,7 +177,7 @@ bool rgb_matrix_indicators_user(void) {
     if(led_usb_state.caps_lock) {
         rgb_matrix_set_color(8, RGB_RED);
     } else {
-        rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(8, rgbCurrent.r, rgbCurrent.g, rgbCurrent.b);
     }
     if(lang) {
 		rgb_matrix_set_color(27, RGB_PURPLE);
@@ -618,11 +621,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
 				    if(isRGBon) {
                         isRGBon = false;
-                        rgb = hsv_to_rgb(rgb_matrix_get_hsv());
-                        rgb_matrix_sethsv_noeeprom(HSV_OFF);
+                        // rgb = hsv_to_rgb(rgb_matrix_get_hsv());
+                        // rgb_matrix_sethsv_noeeprom(HSV_OFF);
                     } else {
                         isRGBon = true;
-                        rgb_matrix_set_color_all(100, 100, 100);
+                        // rgb_matrix_set_color_all(100, 100, 100);
                     }
                 }
 			} else {
