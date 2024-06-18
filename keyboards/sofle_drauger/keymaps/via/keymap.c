@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 };
 
-#define colorFn        RGB_CORAL
+#define colorFn        RGB_TURQUOISE
 #define colorNum       RGB_RED
 #define colorCaps      RGB_RED
 #define colorEn        RGB_ORANGE
@@ -158,30 +158,30 @@ bool rgb_matrix_indicators_user(void) {
             }
             break;
         case 1:
-                rgb_matrix_set_color(12, RGB_RED);
-                rgb_matrix_set_color(16, RGB_RED);
-                rgb_matrix_set_color(17, RGB_RED);
-                rgb_matrix_set_color(22, RGB_RED);
-                rgb_matrix_set_color(41, RGB_RED);
-                rgb_matrix_set_color(42, RGB_RED);
-                rgb_matrix_set_color(43, RGB_RED);
-                rgb_matrix_set_color(44, RGB_RED);
-                rgb_matrix_set_color(45, RGB_RED);
-                rgb_matrix_set_color(46, RGB_RED);
-                rgb_matrix_set_color(50, RGB_RED);
-                rgb_matrix_set_color(51, RGB_RED);
-                rgb_matrix_set_color(52, RGB_RED);
-                rgb_matrix_set_color(53, RGB_RED);
+                rgb_matrix_set_color(12, colorNum);
+                rgb_matrix_set_color(16, colorNum);
+                rgb_matrix_set_color(17, colorNum);
+                rgb_matrix_set_color(22, colorNum);
+                rgb_matrix_set_color(41, colorNum);
+                rgb_matrix_set_color(42, colorNum);
+                rgb_matrix_set_color(43, colorNum);
+                rgb_matrix_set_color(44, colorNum);
+                rgb_matrix_set_color(45, colorNum);
+                rgb_matrix_set_color(46, colorNum);
+                rgb_matrix_set_color(50, colorNum);
+                rgb_matrix_set_color(51, colorNum);
+                rgb_matrix_set_color(52, colorNum);
+                rgb_matrix_set_color(53, colorNum);
             break;
         case 2:
-                rgb_matrix_set_color(12, RGB_CORAL);
-                rgb_matrix_set_color(16, RGB_CORAL);
-                rgb_matrix_set_color(17, RGB_CORAL);
-                rgb_matrix_set_color(22, RGB_CORAL);
-                rgb_matrix_set_color(41, RGB_CORAL);
-                rgb_matrix_set_color(45, RGB_CORAL);
-                rgb_matrix_set_color(46, RGB_CORAL);
-                rgb_matrix_set_color(51, RGB_CORAL);
+                rgb_matrix_set_color(12, colorFn);
+                rgb_matrix_set_color(16, colorFn);
+                rgb_matrix_set_color(17, colorFn);
+                rgb_matrix_set_color(22, colorFn);
+                rgb_matrix_set_color(41, colorFn);
+                rgb_matrix_set_color(45, colorFn);
+                rgb_matrix_set_color(46, colorFn);
+                rgb_matrix_set_color(51, colorFn);
             break;
         // case 3:
             // oled_write_ln_P(PSTR("Adj"), false);
@@ -190,16 +190,16 @@ bool rgb_matrix_indicators_user(void) {
             // oled_write_ln_P(PSTR("Undef\n"), false);
     }
     if(led_usb_state.caps_lock) {
-        rgb_matrix_set_color(8, RGB_RED);
+        rgb_matrix_set_color(8, colorCaps);
     } else {
         rgb_matrix_set_color(8, rgbCurrent.r, rgbCurrent.g, rgbCurrent.b);
     }
     if(lang) {
-		rgb_matrix_set_color(27, RGB_PURPLE);
-		// rgb_matrix_set_color(56, RGB_PURPLE);
+		rgb_matrix_set_color(27, colorRu);
+		// rgb_matrix_set_color(56, colorRu);
     } else {
-        rgb_matrix_set_color(27, RGB_ORANGE);
-        // rgb_matrix_set_color(56, RGB_ORANGE);
+        rgb_matrix_set_color(27, colorEn);
+        // rgb_matrix_set_color(56, colorEn);
     }
     } else {
         if (rgbCurrent.r != rgbLast.r || rgbCurrent.g != rgbLast.g || rgbCurrent.b != rgbLast.b) {
