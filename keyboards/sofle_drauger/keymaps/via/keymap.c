@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 static bool lang;
 static uint8_t mod_state;
 static RGB rgb, rgbLast;
-static bool isRGBon = /*false, isRGBindicatorsOn = */true;
+static bool isRGBon = false;//, isRGBindicatorsOn = true;
 
 bool rgb_matrix_indicators_user(void) {
     led_t led_usb_state = host_keyboard_led_state();
