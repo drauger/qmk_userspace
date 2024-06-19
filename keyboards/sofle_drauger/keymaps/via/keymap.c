@@ -571,7 +571,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
             return true;
         }
-        
+/*
         case KC_WH_D:
 		{
             if (mod_state & MOD_MASK_SHIFT) {
@@ -601,7 +601,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
 			return true;
         }
-        
+*/
         case KC_MS_D:
 		{
             if (mod_state & MOD_MASK_SHIFT) {
