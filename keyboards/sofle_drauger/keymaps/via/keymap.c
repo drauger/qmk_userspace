@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 static bool lang;
 static uint8_t mod_state;
 static RGB rgb, rgbLast;
-static bool isRGBon = false, isRGBindicatorsOn = true;
+static bool isRGBon = /*false, isRGBindicatorsOn = */true;
 
 bool rgb_matrix_indicators_user(void) {
     led_t led_usb_state = host_keyboard_led_state();
@@ -147,7 +147,8 @@ bool rgb_matrix_indicators_user(void) {
         rgbCurrent.b = 0;
     }
 
-    if(isRGBindicatorsOn) {
+    // if(isRGBindicatorsOn) {
+    if(isRGBon) {
     switch (get_highest_layer(layer_state)) {
         case 0:
             if (rgbCurrent.r != rgbLast.r || rgbCurrent.g != rgbLast.g || rgbCurrent.b != rgbLast.b) {
@@ -634,13 +635,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RGB_TOG:
         {
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    if(isRGBindicatorsOn) {
-                        isRGBindicatorsOn = false;
-                    } else {
-                        isRGBindicatorsOn = true;
-                    }
-                } else {
+                // if (mod_state & MOD_MASK_SHIFT) {
+                //     if(isRGBindicatorsOn) {
+                //         isRGBindicatorsOn = false;
+                //     } else {
+                //         isRGBindicatorsOn = true;
+                //     }
+                // } else {
 				    if(isRGBon) {
                         isRGBon = false;
                         rgb.r = rgbLast.r;
@@ -652,7 +653,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         isRGBon = true;
                         // rgb_matrix_set_color_all(100, 100, 100);
                     }
-                }
+                // }
 			} else {
                  
             }
