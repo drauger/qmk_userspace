@@ -196,11 +196,11 @@ bool rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(8, rgbCurrent.r, rgbCurrent.g, rgbCurrent.b);
     }
     if(lang) {
-		rgb_matrix_set_color(27, colorRu);
-		// rgb_matrix_set_color(56, colorRu);
+		rgb_matrix_set_color(25, colorRu);
+		// rgb_matrix_set_color(54, colorRu);
     } else {
-        rgb_matrix_set_color(27, colorEn);
-        // rgb_matrix_set_color(56, colorEn);
+        rgb_matrix_set_color(25, colorEn);
+        // rgb_matrix_set_color(54, colorEn);
     }
     } else {
         if (rgbCurrent.r != rgbLast.r || rgbCurrent.g != rgbLast.g || rgbCurrent.b != rgbLast.b) {
