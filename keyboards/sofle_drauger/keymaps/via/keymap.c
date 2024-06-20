@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool lang, change = false;
 uint8_t mod_state;
 RGB rgb, rgbLast;
-bool isRGBon = false;//, isRGBindicatorsOn = true;
+// bool isRGBon = false;//, isRGBindicatorsOn = true;
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     change = true;
@@ -137,30 +137,32 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 bool rgb_matrix_indicators_user(void) {
-    led_t led_usb_state = host_keyboard_led_state();
-    RGB rgbCurrent;
+    // led_t led_usb_state = host_keyboard_led_state();
+    // RGB rgbCurrent;
 
     if(change) {
         change = false;
     
-    if(isRGBon) {
-        // rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
-        rgbCurrent.r = rgb.r;
-        rgbCurrent.g = rgb.g;
-        rgbCurrent.b = rgb.b;
-    } else {
-        // rgb_matrix_sethsv_noeeprom(HSV_OFF);
-        rgbCurrent.r = 0;
-        rgbCurrent.g = 0;
-        rgbCurrent.b = 0;
-    }
+    // if(isRGBon) {
+    //     // rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+    //     rgbCurrent.r = rgb.r;
+    //     rgbCurrent.g = rgb.g;
+    //     rgbCurrent.b = rgb.b;
+    // } else {
+    //     // rgb_matrix_sethsv_noeeprom(HSV_OFF);
+    //     // rgbCurrent.r = 0;
+    //     // rgbCurrent.g = 0;
+    //     // rgbCurrent.b = 0;
+    // }
 
     // if(isRGBindicatorsOn) {
-    if(isRGBon) {
+    // if(isRGBon) {
+	if(rgb_matrix_is_enabled()) {
     switch (get_highest_layer(layer_state)) {
         case 0:
-            if (rgbCurrent.r != rgbLast.r || rgbCurrent.g != rgbLast.g || rgbCurrent.b != rgbLast.b) {
-                rgb_matrix_set_color_all(rgbCurrent.r, rgbCurrent.g, rgbCurrent.b);
+            // if (rgbCurrent.r != rgbLast.r || rgbCurrent.g != rgbLast.g || rgbCurrent.b != rgbLast.b) {
+            if (rgb.r != rgbLast.r || rgb.g != rgbLast.g || rgb.b != rgbLast.b) {
+                rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
                 rgbLast.r = rgbCurrent.r;
                 rgbLast.g = rgbCurrent.g;
                 rgbLast.b = rgbCurrent.b;
@@ -198,7 +200,7 @@ bool rgb_matrix_indicators_user(void) {
         // default:
             // oled_write_ln_P(PSTR("Undef\n"), false);
     }
-    if(led_usb_state.caps_lock) {
+    if(host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(8, colorCaps);
     } else {
         rgb_matrix_set_color(8, rgbCurrent.r, rgbCurrent.g, rgbCurrent.b);
@@ -210,13 +212,13 @@ bool rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(25, colorEn);
         // rgb_matrix_set_color(54, colorEn);
     }
-    } else {
-        if (rgbCurrent.r != rgbLast.r || rgbCurrent.g != rgbLast.g || rgbCurrent.b != rgbLast.b) {
-            rgb_matrix_set_color_all(rgbCurrent.r, rgbCurrent.g, rgbCurrent.b);
-            rgbLast.r = rgbCurrent.r;
-            rgbLast.g = rgbCurrent.g;
-            rgbLast.b = rgbCurrent.b;
-        }
+    // } else {
+        // if (rgbCurrent.r != rgbLast.r || rgbCurrent.g != rgbLast.g || rgbCurrent.b != rgbLast.b) {
+        //     rgb_matrix_set_color_all(rgbCurrent.r, rgbCurrent.g, rgbCurrent.b);
+        //     rgbLast.r = rgbCurrent.r;
+        //     rgbLast.g = rgbCurrent.g;
+        //     rgbLast.b = rgbCurrent.b;
+        // }
     }
     }
     return false;
@@ -654,16 +656,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 //         isRGBindicatorsOn = true;
                 //     }
                 // } else {
-				    if(isRGBon) {
-                        isRGBon = false;
+				    // if(isRGBon) {
+				    if(rgb_matrix_is_enabled()) {
+                        // isRGBon = false;
                         rgb.r = rgbLast.r;
                         rgb.g = rgbLast.g;
                         rgb.b = rgbLast.b;
                         // rgb = hsv_to_rgb(rgb_matrix_get_hsv());
                         // rgb_matrix_sethsv_noeeprom(HSV_OFF);
+                        rgb_matrix_disable_noeeprom();
                     } else {
-                        isRGBon = true;
+                        // isRGBon = true;
                         // rgb_matrix_set_color_all(100, 100, 100);
+                        rgb_matrix_enable_noeeprom();
                     }
                 // }
                 change = true;
