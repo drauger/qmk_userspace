@@ -163,9 +163,9 @@ bool rgb_matrix_indicators_user(void) {
             // if (rgbCurrent.r != rgbLast.r || rgbCurrent.g != rgbLast.g || rgbCurrent.b != rgbLast.b) {
             if (rgb.r != rgbLast.r || rgb.g != rgbLast.g || rgb.b != rgbLast.b) {
                 rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
-                rgbLast.r = rgbCurrent.r;
-                rgbLast.g = rgbCurrent.g;
-                rgbLast.b = rgbCurrent.b;
+                rgbLast.r = rgb.r;
+                rgbLast.g = rgb.g;
+                rgbLast.b = rgb.b;
             }
             break;
         case 1:
@@ -203,7 +203,7 @@ bool rgb_matrix_indicators_user(void) {
     if(host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(8, colorCaps);
     } else {
-        rgb_matrix_set_color(8, rgbCurrent.r, rgbCurrent.g, rgbCurrent.b);
+        rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
     }
     if(lang) {
 		rgb_matrix_set_color(25, colorRu);
