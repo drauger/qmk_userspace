@@ -679,10 +679,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
 
-        
         case KC_CAPS:
             {
                 change = true;
+                return true;
+            }
+
+        case RGB_HUI:
+        case RGB_SAI:
+        case RGB_VAI:
+            {
+                change = true;
+                rgb = hsv_to_rgb(rgb_matrix_get_hsv());
                 return true;
             }
     }
