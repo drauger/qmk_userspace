@@ -126,22 +126,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define colorEn        RGB_ORANGE
 #define colorRu        RGB_PURPLE
 
-bool lang, change = false;
+bool lang;//, change = false;
 uint8_t mod_state;
 RGB rgb, rgbLast;
 // bool isRGBon = false;//, isRGBindicatorsOn = true;
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    change = true;
-    return state;
-}
+// layer_state_t layer_state_set_user(layer_state_t state) {
+    // change = true;
+    // return state;
+// }
 
 bool rgb_matrix_indicators_user(void) {
     // led_t led_usb_state = host_keyboard_led_state();
     // RGB rgbCurrent;
 
-    if(change) {
-        change = false;
+    // if(change) {
+        // change = false;
     
     // if(isRGBon) {
     //     // rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
@@ -220,7 +220,7 @@ bool rgb_matrix_indicators_user(void) {
         //     rgbLast.b = rgbCurrent.b;
         // }
     }
-    }
+    // }
     return false;
 }
 
@@ -539,7 +539,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				lang = !lang;
                 switchLanguage();
                 // printLanguage(true);
-                change = true;
+                // change = true;
             } else {
                 // printLanguage(false);
             }
@@ -564,7 +564,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				if (record->event.pressed) {
 					lang = false;
 					// printLanguage(true);
-                    change = true;
+                    // change = true;
 				} else {
 					// printLanguage(false);
                 }
@@ -578,7 +578,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				if (record->event.pressed) {
 					lang = true;
 					// printLanguage(true);
-                    change = true;
+                    // change = true;
 				} else {
                     // printLanguage(false);
                 }
@@ -671,7 +671,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         rgb_matrix_enable_noeeprom();
                     }
                 // }
-                change = true;
+                // change = true;
 			} else {
                  
             }
@@ -679,17 +679,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
 
-        case KC_CAPS:
-            {
-                change = true;
-                return true;
-            }
+        // case KC_CAPS:
+            // {
+                // change = true;
+                // return true;
+            // }
 
         case RGB_HUI:
         case RGB_SAI:
         case RGB_VAI:
             {
-                change = true;
+                // change = true;
                 rgb = hsv_to_rgb(rgb_matrix_get_hsv());
                 return true;
             }
