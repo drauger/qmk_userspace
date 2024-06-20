@@ -131,13 +131,17 @@ uint8_t mod_state;
 RGB rgb, rgbLast;
 bool isRGBon = false;//, isRGBindicatorsOn = true;
 
+layer_state_t layer_state_set_user(layer_state_t state) {
+    change = true;
+    return state;
+}
+
 bool rgb_matrix_indicators_user(void) {
     led_t led_usb_state = host_keyboard_led_state();
     RGB rgbCurrent;
 
     if(change) {
         change = false;
-    }
     
     if(isRGBon) {
         // rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
@@ -213,6 +217,7 @@ bool rgb_matrix_indicators_user(void) {
             rgbLast.g = rgbCurrent.g;
             rgbLast.b = rgbCurrent.b;
         }
+    }
     }
     return false;
 }
@@ -670,7 +675,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_CAPS:
             {
                 change = true;
-                break;
+                return true;
             }
     }
     return true;
