@@ -305,7 +305,11 @@ void keyboard_post_init_user(void) {
     rgb_matrix_disable();
     rgb_matrix_enable_noeeprom();
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-	rgb_matrix_sethsv_noeeprom(HSV_OFF);
+    rgb.r = 50;
+    rgb.g = 50;
+    rgb.b = 50;
+    rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+	// rgb_matrix_sethsv_noeeprom(HSV_OFF);
 	// rgb_matrix_set_color_all(100, 100, 100);
 }
 
