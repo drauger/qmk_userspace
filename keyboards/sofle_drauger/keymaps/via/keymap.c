@@ -537,6 +537,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				lang = !lang;
                 switchLanguage();
                 // printLanguage(true);
+                change = true;
             } else {
                 // printLanguage(false);
             }
@@ -561,6 +562,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				if (record->event.pressed) {
 					lang = false;
 					// printLanguage(true);
+                    change = true;
 				} else {
 					// printLanguage(false);
                 }
@@ -574,6 +576,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				if (record->event.pressed) {
 					lang = true;
 					// printLanguage(true);
+                    change = true;
 				} else {
                     // printLanguage(false);
                 }
