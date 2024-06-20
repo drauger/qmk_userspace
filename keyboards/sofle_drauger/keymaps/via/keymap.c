@@ -126,14 +126,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define colorEn        RGB_ORANGE
 #define colorRu        RGB_PURPLE
 
-static bool lang;
-static uint8_t mod_state;
-static RGB rgb, rgbLast;
-static bool isRGBon = false;//, isRGBindicatorsOn = true;
+bool lang, change = false;
+uint8_t mod_state;
+RGB rgb, rgbLast;
+bool isRGBon = false;//, isRGBindicatorsOn = true;
 
 bool rgb_matrix_indicators_user(void) {
     led_t led_usb_state = host_keyboard_led_state();
     RGB rgbCurrent;
+
+    if(change) {
+        change = false;
+    }
     
     if(isRGBon) {
         // rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
@@ -654,12 +658,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         // rgb_matrix_set_color_all(100, 100, 100);
                     }
                 // }
+                change = true;
 			} else {
                  
             }
             //return true;
             return false;
         }
+
+        
+        case KC_CAPS:
+            {
+                change = true;
+                break;
+            }
     }
     return true;
 };
