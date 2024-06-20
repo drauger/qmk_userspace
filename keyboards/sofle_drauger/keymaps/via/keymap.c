@@ -659,9 +659,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				    // if(isRGBon) {
 				    if(rgb_matrix_is_enabled()) {
                         // isRGBon = false;
-                        rgb.r = rgbLast.r;
-                        rgb.g = rgbLast.g;
-                        rgb.b = rgbLast.b;
+                        // rgb.r = rgbLast.r;
+                        // rgb.g = rgbLast.g;
+                        // rgb.b = rgbLast.b;
                         // rgb = hsv_to_rgb(rgb_matrix_get_hsv());
                         // rgb_matrix_sethsv_noeeprom(HSV_OFF);
                         rgb_matrix_disable_noeeprom();
