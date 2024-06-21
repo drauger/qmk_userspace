@@ -207,10 +207,10 @@ bool rgb_matrix_indicators_user(void) {
     }
     if(lang) {
 		rgb_matrix_set_color(25, colorRu);
-		rgb_matrix_set_color(54, colorRu);
+		// rgb_matrix_set_color(54, colorRu);
     } else {
         rgb_matrix_set_color(25, colorEn);
-        rgb_matrix_set_color(54, colorEn);
+        // rgb_matrix_set_color(54, colorEn);
     }
     // } else {
         // if (rgbCurrent.r != rgbLast.r || rgbCurrent.g != rgbLast.g || rgbCurrent.b != rgbLast.b) {
