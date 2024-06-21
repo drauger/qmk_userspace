@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_GRV, RGB_VAI, KC_VOLD, KC_VOLU,  KC_DLR, KC_PERC,                    KC_PSLS,   KC_P7,   KC_P8,   KC_P9, KC_RPRN,  KC_EQL,
    KC_TAB, RGB_SAI, KC_HOME,   KC_UP,  KC_END, KC_PGUP,                    KC_PAST,   KC_P4,   KC_P5,   KC_P6, KC_AMPR, KC_RBRC,
   KC_LGUI, RGB_HUI, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                    KC_PMNS,   KC_P1,   KC_P2,   KC_P3, KC_COLN,  KC_DQT,
-  KC_LSFT, KC_CAPS, KC_BTN1, KC_BTN3, KC_BTN2,  KC_PWR, RGB_TOG,  C(KC_A), KC_PPLS,   KC_P0, KC_PDOT,   KC_GT, KC_BSLS, KC_RSFT,
+  KC_LSFT, KC_CAPS, KC_BTN1, KC_BTN3, KC_BTN2,  KC_PWR, KC_INT2,  C(KC_A), KC_PPLS,   KC_P0, KC_PDOT,   KC_GT, KC_BSLS, KC_RSFT,
                     KC_TRNS, KC_TRNS, KC_TRNS,   TG(2), KC_TRNS,  KC_TRNS,   TG(2), KC_TRNS, KC_TRNS, KC_TRNS
 ),
 /* RAISE - Fn
@@ -158,7 +158,8 @@ bool rgb_matrix_indicators_user(void) {
     // if(isRGBindicatorsOn) {
     // if(isRGBon) {
 	if(rgb_matrix_is_enabled()) {
-    switch (get_highest_layer(layer_state)) {
+    led_t led_usb_state = host_keyboard_led_state();
+        switch (get_highest_layer(layer_state)) {
         case 0:
             // if (rgbCurrent.r != rgbLast.r || rgbCurrent.g != rgbLast.g || rgbCurrent.b != rgbLast.b) {
             if (rgb.r != rgbLast.r || rgb.g != rgbLast.g || rgb.b != rgbLast.b) {
@@ -200,17 +201,17 @@ bool rgb_matrix_indicators_user(void) {
         // default:
             // oled_write_ln_P(PSTR("Undef\n"), false);
     }
-    if(host_keyboard_led_state().caps_lock) {
+    if(led_usb_state.caps_lock) {
         rgb_matrix_set_color(8, colorCaps);
     } else {
         rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
     }
-    if(lang) {
+    if(lang || led_usb_state.kana) {
 		rgb_matrix_set_color(25, colorRu);
-		// rgb_matrix_set_color(54, colorRu);
+		rgb_matrix_set_color(54, colorRu);
     } else {
         rgb_matrix_set_color(25, colorEn);
-        // rgb_matrix_set_color(54, colorEn);
+        rgb_matrix_set_color(54, colorEn);
     }
     // } else {
         // if (rgbCurrent.r != rgbLast.r || rgbCurrent.g != rgbLast.g || rgbCurrent.b != rgbLast.b) {
@@ -253,7 +254,7 @@ void print_status_narrow(void) {
         oled_write_ln_P(PSTR(""), false);
     }
     oled_set_cursor(0, 13);
-    if(lang) {
+    if(lang || led_usb_state.kana) {
 		    oled_write_ln_P(PSTR("  Ru"), false);
     } else {
 		    oled_write_ln_P(PSTR("En"), false);
