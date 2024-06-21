@@ -272,6 +272,7 @@ void switchLanguage(void) {
     }
     unregister_code(KC_LSFT);
 	unregister_code(KC_LALT);
+    tap_code(KC_INT2);
 	set_mods(mod_state);
 }
 
