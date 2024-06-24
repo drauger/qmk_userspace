@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_ESC, KC_1,  KC_2,    KC_3,  KC_4,  KC_5,                    KC_6,  KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
    KC_TAB, KC_Q,  KC_W,    KC_E,  KC_R,  KC_T,                    KC_Y,  KC_U,    KC_I,    KC_O,    KC_P, KC_LBRC,
   KC_LGUI, KC_A,  KC_S,    KC_D,  KC_F,  KC_G,                    KC_H,  KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
-  KC_LSFT, KC_Z,  KC_X,    KC_C,  KC_V,  KC_B, KC_LNG1, KC_INT2,  KC_N,  KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
+  KC_LSFT, KC_Z,  KC_X,    KC_C,  KC_V,  KC_B, KC_LNG1, KC_LNG1,  KC_N,  KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
                KC_LCTL, KC_LALT, MO(1), MO(2),  KC_SPC,  KC_ENT, MO(2), MO(1), KC_RALT, KC_RCTL
 ),
 /*
@@ -206,12 +206,13 @@ bool rgb_matrix_indicators_user(void) {
     } else {
         rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
     }
-    if(lang || led_usb_state.kana) {
+    // if(lang || led_usb_state.kana) {
+    if(lang) {
 		rgb_matrix_set_color(25, colorRu);
-		rgb_matrix_set_color(54, colorRu);
+		// rgb_matrix_set_color(54, colorRu);
     } else {
         rgb_matrix_set_color(25, colorEn);
-        rgb_matrix_set_color(54, colorEn);
+        // rgb_matrix_set_color(54, colorEn);
     }
     // } else {
         // if (rgbCurrent.r != rgbLast.r || rgbCurrent.g != rgbLast.g || rgbCurrent.b != rgbLast.b) {
@@ -254,7 +255,8 @@ void print_status_narrow(void) {
         oled_write_ln_P(PSTR(""), false);
     }
     oled_set_cursor(0, 13);
-    if(lang || led_usb_state.kana) {
+    // if(lang || led_usb_state.kana) {
+    if(lang) {
 		    oled_write_ln_P(PSTR("  Ru"), false);
     } else {
 		    oled_write_ln_P(PSTR("En"), false);
@@ -306,10 +308,10 @@ void keyboard_post_init_user(void) {
     rgb_matrix_disable();
     rgb_matrix_enable_noeeprom();
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-    rgb.r = 50;
-    rgb.g = 50;
-    rgb.b = 50;
-    rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+    // rgb.r = 50;
+    // rgb.g = 50;
+    // rgb.b = 50;
+    rgb_matrix_set_color_all(0, 0, 0);
 	// rgb_matrix_sethsv_noeeprom(HSV_OFF);
 	// rgb_matrix_set_color_all(100, 100, 100);
 }
@@ -551,18 +553,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
         
-        case KC_INT2:
-        {
-            if (record->event.pressed) {
-				lang = !lang;
-                switchLanguage();
-                // printLanguage(true);
-                // change = true;
-            } else {
-                // printLanguage(false);
-            }
-            return true;
-        }
+        // case KC_INT2:
+        // {
+            // if (record->event.pressed) {
+				// lang = !lang;
+                // switchLanguage();
+                // // printLanguage(true);
+                // // change = true;
+            // } else {
+                // // printLanguage(false);
+            // }
+            // return true;
+        // }
         
     //     case KC_LNG2:
     //     {
