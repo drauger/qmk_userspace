@@ -553,6 +553,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
         
+        case KC_SCRL:
+        {
+            if (record->event.pressed) {
+				lang = !lang;
+                switchLanguage();
+                // printLanguage(true);
+                // change = true;
+            } else {
+                // printLanguage(false);
+            }
+            return false;
+        }
+        
         // case KC_INT2:
         // {
             // if (record->event.pressed) {
