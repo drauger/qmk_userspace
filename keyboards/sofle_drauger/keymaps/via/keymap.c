@@ -207,6 +207,7 @@ bool rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
     }
     // if(lang || led_usb_state.kana) {
+    // if(lang || led_usb_state.scroll_lock) {
     if(lang) {
 		rgb_matrix_set_color(25, colorRu);
 		// rgb_matrix_set_color(54, colorRu);
@@ -553,18 +554,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
         
-        case KC_SCRL:
-        {
-            if (record->event.pressed) {
-				lang = !lang;
-                switchLanguage();
-                // printLanguage(true);
-                // change = true;
-            } else {
-                // printLanguage(false);
-            }
-            return false;
-        }
+    //     case KC_SCRL:
+    //     {
+    //         if (record->event.pressed) {
+				// lang = !lang;
+    //             switchLanguage();
+    //             // printLanguage(true);
+    //             // change = true;
+    //         } else {
+    //             // printLanguage(false);
+    //         }
+    //         return false;
+    //     }
         
         // case KC_INT2:
         // {
