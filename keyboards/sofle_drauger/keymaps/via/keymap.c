@@ -123,6 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define colorFn        RGB_GREEN
 #define colorNum       RGB_RED
 #define colorCaps      RGB_RED
+#define colorMods      RGB_CYAN
 #define colorEn        RGB_ORANGE
 #define colorRu        RGB_PURPLE
 
@@ -158,7 +159,8 @@ bool rgb_matrix_indicators_user(void) {
     // if(isRGBindicatorsOn) {
     // if(isRGBon) {
 	if(rgb_matrix_is_enabled()) {
-    led_t led_usb_state = host_keyboard_led_state();
+        led_t led_usb_state = host_keyboard_led_state();
+        mod_state = get_mods();
         switch (get_highest_layer(layer_state)) {
         case 0:
             // if (rgbCurrent.r != rgbLast.r || rgbCurrent.g != rgbLast.g || rgbCurrent.b != rgbLast.b) {
@@ -202,9 +204,37 @@ bool rgb_matrix_indicators_user(void) {
             // oled_write_ln_P(PSTR("Undef\n"), false);
     }
     if(led_usb_state.caps_lock) {
-        rgb_matrix_set_color(8, colorCaps);
+        rgb_matrix_set_color(8, colorMods);
+        rgb_matrix_set_color(8, colorMods);
     } else {
         rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
+    }
+    if(mod_state & MOD_MASK_CTRL) {
+        rgb_matrix_set_color(0, colorMods);
+        rgb_matrix_set_color(29, colorMods);
+    } else {
+        rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(29, rgb.r, rgb.g, rgb.b);
+    }
+    if(mod_state & MOD_MASK_SHIFT) {
+        rgb_matrix_set_color(1, colorMods);
+        rgb_matrix_set_color(30, colorMods);
+    } else {
+        rgb_matrix_set_color(1, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(30, rgb.r, rgb.g, rgb.b);
+    }
+    if(mod_state & MOD_MASK_ALT) {
+        rgb_matrix_set_color(9, colorMods);
+        rgb_matrix_set_color(38, colorMods);
+    } else {
+        rgb_matrix_set_color(9, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(38, rgb.r, rgb.g, rgb.b);
+    }
+    if(mod_state & MOD_MASK_GUI) {
+        rgb_matrix_set_color(2, colorMods);
+    } else {
+        rgb_matrix_set_color(2, rgb.r, rgb.g, rgb.b);
     }
     // if(lang || led_usb_state.kana) {
     // if(lang || led_usb_state.scroll_lock) {
